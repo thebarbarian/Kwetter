@@ -13,21 +13,35 @@
     <h:body>
         <div id="container">
         <h1>
-            <ui:insert name="title">Default Title</ui:insert>
+            <ui:insert name="title">Is da een titel of wa.</ui:insert>
         </h1>
         <div id="body">
         <p>
-            <ui:insert name="body">Default Body</ui:insert>            
+            <ui:insert name="body">Ja eh het lichaam zeg maar.          
+            <ui:insert name="Login">
+                <h:form id="Login">
+                    <h:outputText value="Username:"/>
+            <h:inputText  value ="#{UserController.user.username}" styleClass="myInput"/>
+            <BR/><h:outputText value="Password:"/>
+            <h:inputSecret value="#{UserController.user.password}" styleClass="myInput"/>            
+                </h:form>
+            </ui:insert></ui:insert>  
         </p>        
+            
         </div>
         <div id="content">
         <p>
-            <ui:insert name="content" >Default Content</ui:insert>  
+            <ui:insert name="content" >Het gaat om de inhoud he.</ui:insert>  
         </p>
         </div>
         <div id="tweetWindw">
         <p>
-            <ui:insert name="tweetWindow">Default Tweetz0r</ui:insert>
+            <ui:insert name="tweetWindow">Default Tweetz0r
+             <h:form>                 
+                     <h:inputText value="#{KwetterBean.getTweet()}" readonly="true" styleClass="MainTweet" />                 
+    	  </h:form>
+            
+            </ui:insert>
         </p>
         </div>
         <div id ="bioWin">
@@ -37,7 +51,18 @@
         </div>
         <div id="tweetMon">
         <p>            
-            <ui:insert name="tweetMonitor">Default tweetMonitor</ui:insert>
+            <ui:insert name="tweetMonitor">
+                <table border="1" width ="245">
+                    <tr><td>Tweet tweet</td></tr>
+                    <tr><td>Tweet tweet</td></tr>
+                    <tr><td>Tweet tweet</td></tr>
+                    <tr><td>Tweet tweet</td></tr>
+                    <tr><td>Tweet tweet</td></tr>
+                    <tr><td>.....</td></tr>
+                </table>
+                
+            </ui:insert>
+            
         </p>
         </div>
         </div>

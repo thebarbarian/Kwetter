@@ -6,12 +6,14 @@
        
     <h:head>Testhoofd ook maar derbij</h:head>
     <h:body>
-        <ui:composition template="template.xhtml">                        
-        <ui:define name="title"> Titel dan jonguh </ui:define>            
+        <ui:composition template="template.xhtml">
+            <ui:define name="container">
+        <ui:define name="title"></ui:define>            
         <ui:define name="content">         
         <h:link outcome="/probeersel/List" value="Show All Probeersel Items"/>    
         <h:link outcome="/probeersel/Create" value="Maak maar es wa dan." />                  
         </ui:define>
+            </ui:define>
         </ui:composition>
     </h:body>
 
