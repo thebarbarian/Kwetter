@@ -13,17 +13,19 @@
     <h:body>
         <div id="container">
         <h1>
-            <ui:insert name="title">Is da een titel of wa.</ui:insert>
+            <ui:insert name="title">Java Server Faces Twitter!</ui:insert>
         </h1>
         <div id="body">
         <p>
-            <ui:insert name="body">Ja eh het lichaam zeg maar.          
+            <ui:insert name="body">Hier komt te staan waarom het zo geweldig is.         
             <ui:insert name="Login">
                 <h:form id="Login">
                     <h:outputText value="Username:"/>
-            <h:inputText  value ="#{UserController.user.username}" styleClass="myInput"/>
+                    <h:messages style="color:red" />
+            <h:inputText  value ="#{UserController.user.username}" styleClass="myInput" required="true"/>
             <BR/><h:outputText value="Password:"/>
-            <h:inputSecret value="#{UserController.user.password}" styleClass="myInput"/>            
+            <h:inputSecret value="#{UserController.user.password}" styleClass="myInput" required="true"/>
+            <h:commandButton action="#{userController.Login()}" value="Login" />
                 </h:form>
             </ui:insert></ui:insert>  
         </p>        
@@ -38,7 +40,7 @@
         <p>
             <ui:insert name="tweetWindow">Default Tweetz0r
              <h:form>                 
-                     <h:inputText value="#{KwetterBean.getTweet()}" readonly="true" styleClass="MainTweet" />                 
+                     <h:inputText value="#{KwetterController.getTweet()}" readonly="true" styleClass="MainTweet" />                 
     	  </h:form>
             
             </ui:insert>
@@ -47,19 +49,29 @@
         <div id ="bioWin">
         <p>
             <ui:insert name="bioWindow">Default BioWindow</ui:insert>
+          
         </p>
         </div>
         <div id="tweetMon">
         <p>            
             <ui:insert name="tweetMonitor">
-                <table border="1" width ="245">
+                <table border="1" width ="235" align="center">
                     <tr><td>Tweet tweet</td></tr>
                     <tr><td>Tweet tweet</td></tr>
                     <tr><td>Tweet tweet</td></tr>
                     <tr><td>Tweet tweet</td></tr>
                     <tr><td>Tweet tweet</td></tr>
-                    <tr><td>.....</td></tr>
+                    <tr><td>.....</td></tr>             
                 </table>
+                
+                <ui:repeat value="#{KwetterController.getTweetsFromUser(KwetterController.find(1))}" var="item">
+                #{item}<br/>
+                </ui:repeat>
+                
+                <h:dataTable value="#{KwetterController.getTweetsFromUser(KwetterController.find(1))}" var="item">
+                <h:column>#{item}</h:column>
+                </h:dataTable>
+                
                 
             </ui:insert>
             

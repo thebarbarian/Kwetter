@@ -11,9 +11,18 @@
         <ui:define name="title"></ui:define>            
         <ui:define name="content">         
         <h:link outcome="/probeersel/List" value="Show All Probeersel Items"/>    
-        <h:link outcome="/probeersel/Create" value="Maak maar es wa dan." />                  
+        <h:link outcome="/probeersel/Create" value="Maak maar es wa dan." />            
         </ui:define>
-            </ui:define>
+            </ui:define>         
+            <ui:repeat value="#{KwetterController.getTweetsFromUser(KwetterController.find(1))}" var="item">
+                #{item}<br/>
+                </ui:repeat>
+                
+                <h:dataTable value="#{KwetterController.getTweetsFromUser(KwetterController.find(1))}" var="item">
+                <h:column>#{item}</h:column>
+                </h:dataTable>
+            
+            
         </ui:composition>
     </h:body>
 

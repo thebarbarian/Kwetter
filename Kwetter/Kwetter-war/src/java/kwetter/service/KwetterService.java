@@ -22,7 +22,7 @@ public class KwetterService {
     }
 
     public void edit(User user) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        throw new UnsupportedOperationException("Not supported yet."); 
     }
 
     public void remove(User user) {
@@ -34,7 +34,7 @@ public class KwetterService {
     }
 
     public User find(Object id) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        throw new UnsupportedOperationException("Not supported yet.");      
     }
 
     public int count() {

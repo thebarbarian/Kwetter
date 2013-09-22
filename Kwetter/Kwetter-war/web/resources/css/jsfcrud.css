@@ -16,6 +16,7 @@ a {
 
 table {
     empty-cells: show;
+    margin:5px;
 }
 
 form.jsfcrud_list_form th, td th {
@@ -91,8 +92,9 @@ tr.jsfcrud_even_row {
 #tweetMon{
     background-color: #A9E4A9;
     height:275px;
-    width:250px;
+    width:245px;
     float:left;
+    margin:5px;
 }
 
 .MainTweet{
@@ -106,15 +108,17 @@ tr.jsfcrud_even_row {
     height:275px;
     width:250px;
     float:left;
+    margin:5px;
 }
 
 #container{
-    width:500px;    
+    width:550px;    
     margin: 0 0 0 20px;
     background-image: url('images/snowy-mountain.jpg');
 }
 
 #Login{
     width : 35px;
-    float:right;    
+    float:right;
+    margin:5px;
 }

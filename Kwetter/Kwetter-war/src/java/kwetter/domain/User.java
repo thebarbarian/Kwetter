@@ -28,6 +28,10 @@ public class User  {
         this.bio = bio;
     }
 
+    public Long getId(User user){
+        return User.serialVersionUID;
+    }
+    
     public String getBio() {
         return bio;
     }
@@ -68,11 +72,9 @@ public class User  {
         this.tweets = tweets;
     }
 
-
     public Boolean addFollowing(User following){
         return this.following.add(following);
     }
-
   
     public Boolean addTweet(Tweet tweet){
         return this.tweets.add(tweet);
@@ -99,5 +101,4 @@ public class User  {
     public String toString() {
         return "twitter.domain.User[naam=" + name + "]";
     }
-
 }
