@@ -82,6 +82,16 @@
                 </p>
             </div>
             
+              <div id="FollowingWindow>">
+                <p>
+                    <ui:insert name="FollowingWin">
+                        <h:dataTable border="1" value="#{kwetterController.getAllUsersFollowedBy(kwetterController.find(1))}" var="item">
+                            <h:column>#{item.name}</h:column>                                                    
+                        </h:dataTable>   
+                    </ui:insert>         
+                </p>
+            </div>
+            
         </div>
     </h:body>
 

@@ -1,5 +1,7 @@
 package kwetter.service;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -10,51 +12,112 @@ import kwetter.domain.User;
 //import javax.ejb.Stateless;
 
 //@Stateless
+/**
+ *
+ * @author grave
+ */
 public class KwetterService {
 
     private UserDAO userDAO = new UserDAOCollectionImpl();
 
+    /**
+     * initUsers maakt een paar users en dummy tweets aan.
+     */
     public KwetterService() {
         initUsers();
     }   
     
+    /**
+     * create user, lijkt logisch
+     * @param user
+     */
     public void create(User user) {
         userDAO.create(user);
     }
 
+    /**
+     *
+     * @param user
+     */
     public void edit(User user) {
         throw new UnsupportedOperationException("Not supported yet."); 
     }
 
+    /**
+     *
+     * @param user
+     */
     public void remove(User user) {
         userDAO.remove(user);
     }
 
+    /**
+     *
+     * @return lijst met alle usernames
+     */
     public List<User> findAll() {
         return userDAO.findAll();
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public User find(Object id) {
         throw new UnsupportedOperationException("Not supported yet.");      
     }
 
+    /**
+     *
+     * @return
+     */
     public int count() {
         return userDAO.count();
     }
     
+    /**
+     * Deze nog even checken of dit niet aantal van followers en following moet zijn ipv alles.
+     * @return het totale aantal tweets in de site
+     */
     public int getAllTweetsCount(){
         int totalNrOfTweets=0;
         for(User u:this.findAll()){
             totalNrOfTweets = totalNrOfTweets+u.getTweets().size();
-        }
-        
+        }        
         return 1;
     }
     
-    public int getFollowing(User u){
+    /**
+     *
+     * @param u
+     * @return aantal users dat User u zelf volgt
+     */
+    public int getNrOfFollowing(User u){
         return u.getFollowing().size();                
     }
     
+     /**
+     *
+     * @param u
+     * @return aantal users dat User u door gevolg wordt.
+     */
+    public Collection<User> getAllUsersFollowedBy(User u){
+        Collection<User> c = new ArrayList<User>();
+        for (User p : this.findAll()) {
+            if (p.getFollowing().contains(u)){
+                c.add(p);
+            }
+        }
+        return c;
+    }
+    
+    
+    /**
+     *
+     * @param u
+     * @return aantal users dat User u door gevolg wordt.
+     */
     public int getFollowedBy(User u){
         int nrOfFollowers = 0;
         for (User p : this.findAll()) {
@@ -78,7 +141,6 @@ public class KwetterService {
         u1.addTweet(t1);
         u1.addTweet(t2);
         u1.addTweet(t3);
-
 
         userDAO.create(u1);
         userDAO.create(u2);

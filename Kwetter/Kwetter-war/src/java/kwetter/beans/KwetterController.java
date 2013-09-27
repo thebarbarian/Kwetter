@@ -5,6 +5,7 @@
 package kwetter.beans;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import javax.enterprise.context.RequestScoped;
@@ -32,6 +33,11 @@ public class KwetterController {
         kws = new KwetterService();
     }
     
+    /**
+     *
+     * @param user
+     * @return lijst van alle tweets van User user
+     */
     public List<Tweet> getTweetsFromUser(User user){
         List<Tweet> l = new ArrayList<Tweet>();
         for (Tweet t : user.getTweets()) {
@@ -40,14 +46,28 @@ public class KwetterController {
         return l;
     }        
         
-    public String create(){
+    /**
+     * aanmaken gebruiker
+     * @return succes msg
+     */
+    public String create(User u){
+        kws.create(u);
         return "user aangemaakt";        
     }
     
-      public void edit(User user) {
+      /**
+     *
+     * @param user
+     */
+    public void edit(User user) {
         throw new UnsupportedOperationException("Not supported yet."); 
     }
     
+    /**
+     *
+     * @param id
+     * @return
+     */
     public User find(Long id){
         User wantedUser=null;
         Iterator it = kws.findAll().iterator();
@@ -61,31 +81,66 @@ public class KwetterController {
         return wantedUser; // kan zin dat ie nog niet geinitialiseerd is. boeie maar ff op letten bij nullpointers.
     }
     
+    /**
+     *
+     * @param user
+     */
     public void remove(User user) {
         kws.remove(user);
     }
 
+     public Collection<User> getAllUsersFollowedBy(User u){
+         return kws.getAllUsersFollowedBy(u);
+     }
+    
+    /**
+     *
+     * @return
+     */
     public List<User> findAll() {
         return kws.findAll();
     }
 
+    /**
+     * Deze lag dwars, ff gecomment
+     * @param id
+     * @return
+     *
     public User find(Object id) {
         throw new UnsupportedOperationException("Not supported yet.");      
-    }
+    }*/
 
+    /**
+     *
+     * @return
+     */
     public int count() {
         return kws.count();
     }
     
+    /**
+     *
+     * @param u
+     * @return
+     */
     public int getNrOfFollowing(User u)
     {
-        return kws.getFollowing(u);
+        return kws.getNrOfFollowing(u);
     }
     
+    /**
+     *
+     * @param u
+     * @return
+     */
     public int getNrOfFollowedBy(User u){
         return kws.getFollowedBy(u);
     }
     
+    /**
+     *
+     * @return
+     */
     public int getAllTweetsCount(){
         return kws.getAllTweetsCount();
     }
