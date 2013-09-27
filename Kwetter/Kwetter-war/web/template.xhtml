@@ -22,9 +22,9 @@
                 <h:form id="Login">
                     <h:outputText value="Username:"/>
                     <h:messages style="color:red" />
-            <h:inputText  value ="#{UserController.user.username}" styleClass="myInput" required="true"/>
+            <h:inputText  value ="#{userController.user.username}" styleClass="myInput" required="true"/>
             <BR/><h:outputText value="Password:"/>
-            <h:inputSecret value="#{UserController.user.password}" styleClass="myInput" required="true"/>
+            <h:inputSecret value="#{userController.user.password}" styleClass="myInput" required="true"/>
             <h:commandButton action="#{userController.Login()}" value="Login" />
                 </h:form>
             </ui:insert></ui:insert>  
@@ -40,7 +40,7 @@
         <p>
             <ui:insert name="tweetWindow">Default Tweetz0r
              <h:form>                 
-                     <h:inputText value="#{KwetterController.getTweet()}" readonly="true" styleClass="MainTweet" />                 
+                    
     	  </h:form>
             
             </ui:insert>
@@ -55,21 +55,11 @@
         <div id="tweetMon">
         <p>            
             <ui:insert name="tweetMonitor">
-                <table border="1" width ="235" align="center">
-                    <tr><td>Tweet tweet</td></tr>
-                    <tr><td>Tweet tweet</td></tr>
-                    <tr><td>Tweet tweet</td></tr>
-                    <tr><td>Tweet tweet</td></tr>
-                    <tr><td>Tweet tweet</td></tr>
-                    <tr><td>.....</td></tr>             
-                </table>
-                
-                <ui:repeat value="#{KwetterController.getTweetsFromUser(KwetterController.find(1))}" var="item">
-                #{item}<br/>
-                </ui:repeat>
-                
-                <h:dataTable value="#{KwetterController.getTweetsFromUser(KwetterController.find(1))}" var="item">
-                <h:column>#{item}</h:column>
+                               
+                <h:dataTable border="1" value="#{kwetterController.getTweetsFromUser(kwetterController.find(1))}" var="item">
+                    <h:column>#{item.datum}</h:column>                        
+                    <h:column>#{item.tweet}</h:column>
+                    <h:column>#{item.vanaf}</h:column>
                 </h:dataTable>
                 
                 

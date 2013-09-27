@@ -14,11 +14,11 @@
         <h:link outcome="/probeersel/Create" value="Maak maar es wa dan." />            
         </ui:define>
             </ui:define>         
-            <ui:repeat value="#{KwetterController.getTweetsFromUser(KwetterController.find(1))}" var="item">
+            <ui:repeat value="#{kwetterController.getTweetsFromUser(kwetterController.find(1))}" var="item">
                 #{item}<br/>
                 </ui:repeat>
                 
-                <h:dataTable value="#{KwetterController.getTweetsFromUser(KwetterController.find(1))}" var="item">
+                <h:dataTable value="#{kwetterController.getTweetsFromUser(kwetterController.find(1))}" var="item">
                 <h:column>#{item}</h:column>
                 </h:dataTable>
             
