@@ -4,7 +4,7 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html">
        
-    <h:head>Testhoofd ook maar derbij</h:head>
+    <h:head>Twitter! van iets!</h:head>
     <h:body>
         <ui:composition template="template.xhtml">
             <ui:define name="container">
@@ -21,7 +21,7 @@
                 <h:dataTable value="#{kwetterController.getTweetsFromUser(kwetterController.find(1))}" var="item">
                 <h:column>#{item}</h:column>
                 </h:dataTable>
-            
+            <ui:define name="totalsWindow"></ui:define>
             
         </ui:composition>
     </h:body>

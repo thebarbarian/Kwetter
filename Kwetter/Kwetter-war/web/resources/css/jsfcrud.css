@@ -97,6 +97,14 @@ tr.jsfcrud_even_row {
     margin:5px;
 }
 
+#totalsWindow{
+    background-color: #A144A9;
+    height:175px;
+    width:245px;
+    float:bottom;
+    margin:5px;
+}
+
 .MainTweet{
     height:100px;
     width:235px;    
