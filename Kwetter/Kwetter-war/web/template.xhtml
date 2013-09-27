@@ -74,7 +74,9 @@
                 <p>
                     <ui:insert name="allInfo">
                         <h:form>
-                        <h:link value="tweetpage.xhtml"></h:link>                        
+                            <h:link outcome="index.xhtml">#{kwetterController.getNrOfFollowing(kwetterController.find(1))} following</h:link> <BR/>                       
+                            <h:link outcome="index.xhtml">#{kwetterController.getNrOfFollowedBy(kwetterController.find(1))} followers</h:link>                        <BR/>
+                            <h:link outcome="index.xhtml">Tweets : #{kwetterController.allTweetsCount}</h:link>                                                <BR/>
                         </h:form>
                     </ui:insert>         
                 </p>

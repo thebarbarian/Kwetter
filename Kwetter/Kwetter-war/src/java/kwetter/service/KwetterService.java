@@ -1,6 +1,7 @@
 package kwetter.service;
 
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import kwetter.dao.UserDAO;
 import kwetter.dao.UserDAOCollectionImpl;
@@ -15,8 +16,8 @@ public class KwetterService {
 
     public KwetterService() {
         initUsers();
-    }
-
+    }   
+    
     public void create(User user) {
         userDAO.create(user);
     }
@@ -40,7 +41,28 @@ public class KwetterService {
     public int count() {
         return userDAO.count();
     }
-
+    
+    public int getAllTweetsCount(){
+        int totalNrOfTweets=0;
+        for(User u:this.findAll()){
+            totalNrOfTweets = totalNrOfTweets+u.getTweets().size();
+        }
+        
+        return 1;
+    }
+    
+    public int getFollowing(User u){
+        return u.getFollowing().size();                
+    }
+    
+    public int getFollowedBy(User u){
+        int nrOfFollowers = 0;
+        for (User p : this.findAll()) {
+            if (p.getFollowing().contains(u)) nrOfFollowers++;                    
+        }
+        return nrOfFollowers;
+    }
+    
     private void initUsers() {
         User u1 = new User("Hans", "http", "geboren 1");
         User u2 = new User("Frank", "httpF", "geboren 2");

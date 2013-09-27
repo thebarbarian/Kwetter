@@ -48,15 +48,17 @@ public class KwetterController {
         throw new UnsupportedOperationException("Not supported yet."); 
     }
     
-    public User find(Long id){        
-	List<User> allUsers = kws.findAll();
-	for(User user : allUsers){
-	    if(user.getId() == id){
-		return user;
-	    }
-	}
-	//TODO return not found oid.
-	return null;
+    public User find(Long id){
+        User wantedUser=null;
+        Iterator it = kws.findAll().iterator();
+        while(it.hasNext())
+        {
+            wantedUser = (User) it.next();
+            if (wantedUser.getId(wantedUser) == id){
+                return wantedUser;
+            }                     
+        }
+        return wantedUser; // kan zin dat ie nog niet geinitialiseerd is. boeie maar ff op letten bij nullpointers.
     }
     
     public void remove(User user) {
@@ -75,5 +77,16 @@ public class KwetterController {
         return kws.count();
     }
     
+    public int getNrOfFollowing(User u)
+    {
+        return kws.getFollowing(u);
+    }
     
+    public int getNrOfFollowedBy(User u){
+        return kws.getFollowedBy(u);
+    }
+    
+    public int getAllTweetsCount(){
+        return kws.getAllTweetsCount();
+    }
 }
