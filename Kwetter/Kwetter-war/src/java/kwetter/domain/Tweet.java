@@ -1,11 +1,27 @@
 package kwetter.domain;
 
+import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Temporal;
 
-
-public class Tweet {
+/**
+ *
+ * @author 871641
+ */
+@Entity
+public class Tweet implements Serializable {
     private static final long serialVersionUID = 1L;
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
     private String tweet;
+    
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date postDate;
     private String postedFrom;
 
@@ -22,6 +38,16 @@ public class Tweet {
         this.postedFrom = vanaf;
     }
 
+    public Long getId() {
+	return id;
+    }
+
+    public void setId(Long id) {
+	this.id = id;
+    }
+
+    
+    
     public String getTweet() {
         return tweet;
     }
