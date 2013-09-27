@@ -37,7 +37,7 @@
             <ui:insert name="content" >Het gaat om de inhoud he.</ui:insert>  
         </p>
         </div>
-        <div id="tweetWindw">
+        <div id="tweetWindow">
         <p>
             <ui:insert name="tweetWindow">Default Tweetz0r
              <h:form>                 
@@ -50,9 +50,9 @@
         <div id ="bioWin">
         <p>
             <ui:insert name="bioWindow">
-                <h:outputLabel>Name : </h:outputLabel><h:outputLabel>#{kwetterController.find(1).name}</h:outputLabel><BR/>            
-                <h:outputLabel>Web : </h:outputLabel><h:outputLabel>#{kwetterController.find(1).web}</h:outputLabel><BR/>
-                <h:outputLabel>Bio : </h:outputLabel><h:outputLabel>#{kwetterController.find(1).bio}</h:outputLabel><BR/>
+                <h:outputLabel>Name : </h:outputLabel><h:outputLabel>#{kwetterController.find(2).name}</h:outputLabel><BR/>            
+                <h:outputLabel>Web : </h:outputLabel><h:outputLabel>#{kwetterController.find(2).web}</h:outputLabel><BR/>
+                <h:outputLabel>Bio : </h:outputLabel><h:outputLabel>#{kwetterController.find(2).bio}</h:outputLabel><BR/>
             </ui:insert>
             
         </p>
@@ -62,6 +62,7 @@
         <p>            
             <ui:insert name="tweetMonitor">                               
                 <h:dataTable border="1" value="#{kwetterController.getTweetsFromUser(kwetterController.find(1))}" var="item">
+                    <h:column>#{kwetterController.find(1).name}</h:column>                        
                     <h:column>#{item.datum}</h:column>                        
                     <h:column>#{item.tweet}</h:column>
                     <h:column>#{item.vanaf}</h:column>
@@ -85,8 +86,8 @@
               <div id="FollowingWindow>">
                 <p>
                     <ui:insert name="FollowingWin">
-                        <h:dataTable border="1" value="#{kwetterController.getAllUsersFollowedBy(kwetterController.find(1))}" var="item">
-                            <h:column>#{item.name}</h:column>                                                    
+                        <h:dataTable border="1" value="#{kwetterController.getAllUsersFollowedBy(kwetterController.find(2))}" var="item">
+                            <h:column>Naam : #{item.name}</h:column>                                                    
                         </h:dataTable>   
                     </ui:insert>         
                 </p>

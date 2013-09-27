@@ -102,8 +102,8 @@ public class KwetterService {
      * @param u
      * @return aantal users dat User u door gevolg wordt.
      */
-    public Collection<User> getAllUsersFollowedBy(User u){
-        Collection<User> c = new ArrayList<User>();
+    public ArrayList<User> getAllUsersFollowedBy(User u){
+        ArrayList<User> c = new ArrayList<User>();
         for (User p : this.findAll()) {
             if (p.getFollowing().contains(u)){
                 c.add(p);
