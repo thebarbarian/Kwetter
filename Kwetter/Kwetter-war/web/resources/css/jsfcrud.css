@@ -6,8 +6,18 @@ body {
     font-family: Arial, Helvetica, sans-serif;
     color: #3a4f54;
     /*background-color: #dfecf1;*/
-    background-image: url('images/snowy-mountain.jpg');
+    /*background-image: url('images/snowy-mountain.jpg');*/
     font-size: small;
+}
+
+html {
+    background-image: url("../../images/snowy2.jpg");    
+    background-repeat: no-repeat;    
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    min-height: 100%;
+    width: 100%;    
 }
 
 a {

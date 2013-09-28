@@ -11,15 +11,7 @@
         <ui:define name="title"></ui:define>            
         <ui:define name="content">                 
         </ui:define>
-            </ui:define>         
-            <ui:repeat value="#{kwetterController.getTweetsFromUser(kwetterController.find(1))}" var="item">
-                #{item}<br/>
-                </ui:repeat>           
-            
-             <h:dataTable border="1" value="#{kwetterController.getAllUsersFollowedBy(kwetterController.find(2))}" var="item">
-                  <h:column>#{item.name}</h:column>                                                    
-             </h:dataTable>              
-            
+            </ui:define>              
         </ui:composition>
     </h:body>
 
