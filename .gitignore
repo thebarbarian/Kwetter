@@ -1,7 +1,14 @@
 #NB
 nbproject/private/
+nbproject/
+*.private
 
+*.class
 
+# Package Files #
+*.jar
+*.war
+*.ear
 
 #################
 ## Eclipse
