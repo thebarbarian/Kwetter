@@ -61,6 +61,21 @@ public class KwetterController {
         throw new UnsupportedOperationException("Not supported yet."); 
     }
     
+    /*
+     * Haal alle tweets op van volgers
+     */
+    public ArrayList<Tweet> getTweetsFromFollowers(User u){
+        return kws.getTweetsFromFollowers(u);
+    }
+    
+    /*
+     * Haal alle tweets op van mensen die de user zelf volgt.
+     */
+    public ArrayList<Tweet> getTweetsFromFollowedBy(User u){
+        return kws.getTweetsFromFollowedBy(u);
+    }
+    
+    
     /**
      *
      * @param id
