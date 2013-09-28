@@ -22,10 +22,8 @@ import kwetter.service.KwetterService;
 @Named
 @RequestScoped
 public class KwetterController {
-
     
-    private KwetterService kws;
-    
+    private KwetterService kws;    
     /**
      * Creates a new instance of KwetterController
      */

@@ -85,7 +85,7 @@ public class KwetterService {
         for(User u:this.findAll()){
             totalNrOfTweets = totalNrOfTweets+u.getTweets().size();
         }        
-        return 1;
+        return totalNrOfTweets;
     }
     
     /**
@@ -95,6 +95,30 @@ public class KwetterService {
      */
     public int getNrOfFollowing(User u){
         return u.getFollowing().size();                
+    }
+    
+    public ArrayList<Tweet> getTweetsFromFollowedBy(User gebruiker){
+        ArrayList<User> u = this.getAllUsersFollowedBy(gebruiker);
+        ArrayList<Tweet> t = new ArrayList<Tweet>();
+        for(User k:u){
+            for(Tweet p:k.getTweets()){
+            t.add(p);
+            }
+        }  
+        return t;
+    }
+    
+    public ArrayList<Tweet> getTweetsFromFollowers(User jan){
+        List<User> allUsers = this.findAll();
+        ArrayList<Tweet> msgs = new ArrayList<Tweet>();
+        for(User h:allUsers){
+            if(h.getName() == null ? jan.getName() == null : h.getName().equals(jan.getName())){
+                for(Tweet y:h.getTweets()){
+                    msgs.add(y);
+                }                    
+            }
+        }       
+        return msgs;
     }
     
      /**
