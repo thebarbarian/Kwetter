@@ -5,6 +5,7 @@ Kwetter/Kwetter-ejb/nbproject/
 Kwetter/Kwetter-war/nbproject/
 Kwetter/nbproject/
 *.private
+private/
 
 private.properties
 
