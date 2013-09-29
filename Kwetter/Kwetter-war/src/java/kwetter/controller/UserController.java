@@ -6,7 +6,6 @@ package kwetter.controller;
 
 import java.io.Serializable;
 import javax.enterprise.context.SessionScoped;
-import javax.inject.Inject;
 import javax.inject.Named;
 import kwetter.domain.User;
 
@@ -16,24 +15,39 @@ import kwetter.domain.User;
  */
 @Named
 @SessionScoped
-public class UserController implements Serializable{
-    
-    @Inject
-    private String username;    
+public class UserController implements Serializable { 
     private User user = new User();
     
-    
-    public String doCreateUser(String username){
-        if(username!=null){
-        createUser(user, username);        
-        return "userCreated.xhtml";
-        } else return "Error.xhtml";        
+
+    public String doCreateUser(String username) {
+        if (username != null) {
+            createUser(user, username);
+            return "userCreated.xhtml";
+        } else {
+            return "Error.xhtml";
+        }
+    }
+
+    /**
+     * Creates a user
+     * @param username
+     * @param password
+     * @return a user if username and password are not null.
+     */
+    public User createUser(String username, String password){
+        if(username != null && password != null){
+            return new User(username, password);            
+        }else{
+            throw new IllegalArgumentException("Username or password are null.");
+        }
     }
     
-    public void createUser(User user, String username){
-        user.setName(username);        
+    public void createUser(User user, String username) {
+        user.setName(username);
     }
-    
-     
+
+    public User getUser() {
+        return user;
+    }
     
 }

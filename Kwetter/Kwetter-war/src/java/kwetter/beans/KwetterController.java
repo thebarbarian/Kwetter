@@ -6,10 +6,8 @@ package kwetter.beans;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 import javax.enterprise.context.RequestScoped;
-import javax.inject.Inject;
 import javax.inject.Named;
 import kwetter.domain.Tweet;
 import kwetter.domain.User;
@@ -22,7 +20,9 @@ import kwetter.service.KwetterService;
 @Named
 @RequestScoped
 public class KwetterController {
+
     
+    //dit moet via CDI
     private KwetterService kws;    
     /**
      * Creates a new instance of KwetterController
@@ -37,7 +37,7 @@ public class KwetterController {
      * @return lijst van alle tweets van User user
      */
     public List<Tweet> getTweetsFromUser(User user){
-        List<Tweet> l = new ArrayList<Tweet>();
+        List<Tweet> l = new ArrayList<>();
         for (Tweet t : user.getTweets()) {
             l.add(t);
         }
@@ -82,16 +82,7 @@ public class KwetterController {
      * @return
      */
     public User find(Long id){
-        User wantedUser=null;
-        Iterator it = kws.findAll().iterator();
-        while(it.hasNext())
-        {
-            wantedUser = (User) it.next();
-            if (wantedUser.getId(wantedUser) == id){
-                return wantedUser;
-            }                     
-        }
-        return wantedUser; // kan zin dat ie nog niet geinitialiseerd is. boeie maar ff op letten bij nullpointers.
+        return kws.find(id);
     }
     
     /**

@@ -68,6 +68,10 @@ public class KwetterService {
         throw new UnsupportedOperationException("Not supported yet.");      
     }
 
+    public User find(Long id){
+        return userDAO.find(id);
+    }
+    
     /**
      *
      * @return

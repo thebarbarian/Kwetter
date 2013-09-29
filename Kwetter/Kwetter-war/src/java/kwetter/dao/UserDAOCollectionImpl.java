@@ -40,6 +40,11 @@ public class UserDAOCollectionImpl implements UserDAO {
 
     @Override
     public User find(Long id) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        for(User u : users){
+            if(u.getId().equals(id)){
+                return u;
+            }
+        }
+        throw new IllegalArgumentException("user with id" + id+ " not found.");
     }
 }
