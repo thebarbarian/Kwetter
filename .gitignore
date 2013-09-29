@@ -6,6 +6,8 @@ Kwetter/Kwetter-war/nbproject/
 Kwetter/nbproject/
 *.private
 
+private.properties
+
 *.class
 
 # Package Files #
