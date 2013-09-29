@@ -105,6 +105,14 @@ tr.jsfcrud_even_row {
     margin:5px;
 }
 
+#FollowingWindow{
+    background-color: #A144A9;
+    height:175px;
+    width:245px;
+    float:right;
+    margin:5px;
+}
+
 .MainTweet{
     height:100px;
     width:235px;    
