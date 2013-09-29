@@ -18,7 +18,11 @@ import kwetter.domain.User;
 public class UserController implements Serializable { 
     private User user = new User();
     
-
+    public String login(){
+        return "not implemented yet.";
+    }
+    
+    
     public String doCreateUser(String username) {
         if (username != null) {
             createUser(user, username);

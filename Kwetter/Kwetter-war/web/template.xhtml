@@ -23,10 +23,10 @@
                 <h:form id="Login">
                     <h:outputText value="Username:"/>
                     <h:messages style="color:red" />
-            <h:inputText  value ="#{userController.user.username}" styleClass="myInput" required="true"/>
+                    <h:inputText  value ="#{userController.user.name}" styleClass="myInput" required="true"/>
             <BR/><h:outputText value="Password:"/>
             <h:inputSecret value="#{userController.user.password}" styleClass="myInput" required="true"/>
-            <h:commandButton action="#{userController.Login()}" value="Login" />
+            <h:commandButton action="#{userController.login()}" value="Login" />
                 </h:form>
             </ui:insert></ui:insert>  
         </p>       
