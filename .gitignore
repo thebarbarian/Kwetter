@@ -1,6 +1,9 @@
 #NB
 nbproject/private/
 nbproject/
+Kwetter/Kwetter-ejb/nbproject/
+Kwetter/Kwetter-war/nbproject/
+Kwetter/nbproject/
 *.private
 
 *.class
