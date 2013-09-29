@@ -159,6 +159,12 @@ public class KwetterService {
         User u2 = new User("Frank", "httpF", "geboren 2");
         User u3 = new User("Tom", "httpT", "geboren 3");
         User u4 = new User("Sjaak", "httpS", "geboren 4");
+        
+        u1.setId(0L);
+        u2.setId(1L);
+        u3.setId(2L);
+        u4.setId(3L);
+        
         u1.addFollowing(u2);
         u1.addFollowing(u3);
         u1.addFollowing(u4);

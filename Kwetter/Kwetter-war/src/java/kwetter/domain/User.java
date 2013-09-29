@@ -167,8 +167,10 @@ public class User implements Serializable  {
 
     @Override
     public String toString() {
-        return "twitter.domain.User[naam=" + name + "]";
+        return "User{" + "id=" + id + ", name=" + name + ", web=" + web + ", bio=" + bio + ", password=" + password + '}'+"\n";
     }
+
+
 
     @Override
     protected Object clone() throws CloneNotSupportedException {

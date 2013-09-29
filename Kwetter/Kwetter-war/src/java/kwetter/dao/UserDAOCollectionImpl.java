@@ -40,6 +40,10 @@ public class UserDAOCollectionImpl implements UserDAO {
 
     @Override
     public User find(Long id) {
+        if(id == null){
+            throw new NullPointerException("param id cannot be null");
+        }
+        System.out.println(users);
         for(User u : users){
             if(u.getId().equals(id)){
                 return u;
