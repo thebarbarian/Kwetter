@@ -51,25 +51,16 @@ public class KwetterService {
         userDAO.remove(user);
     }
 
+    public User find(Long id){        
+        return userDAO.find(id);
+    }
+    
     /**
      *
      * @return lijst met alle usernames
      */
-    public List<User> findAll() {
+    public List<User> findAll() { 
         return userDAO.findAll();
-    }
-
-    /**
-     *
-     * @param id
-     * @return
-     */
-    public User find(Object id) {
-        throw new UnsupportedOperationException("Not supported yet.");      
-    }
-
-    public User find(Long id){
-        return userDAO.find(id);
     }
     
     /**
@@ -172,10 +163,27 @@ public class KwetterService {
         Tweet t1 = new Tweet("Hallo", new Date(), "PC");
         Tweet t2 = new Tweet("Hallo again", new Date(), "PC");
         Tweet t3 = new Tweet("Hallo where are you", new Date(), "PC");
+        Tweet t4 = new Tweet("Time to rock!", new Date(), "PC");
+        Tweet t5 = new Tweet("time to sleep -_-", new Date(), "PC");
+        Tweet t6 = new Tweet("How about jij gaat aan het werk of zo", new Date(), "PC");
+        Tweet t7 = new Tweet("Niks beters te doen dan ?", new Date(), "PC");
+        Tweet t8 = new Tweet("Prinsjesdag maakt koekjes goedkoper!", new Date(), "PC");
+        Tweet t9 = new Tweet("imma let you finish.", new Date(), "PC");
+        Tweet t10 = new Tweet("OMG NOOOOooooooo", new Date(), "PC");
         u1.addTweet(t1);
         u1.addTweet(t2);
         u1.addTweet(t3);
+        
+        u2.addTweet(t4);
+        u2.addTweet(t5);
+        u2.addTweet(t6);
 
+        u3.addTweet(t7);
+        u2.addTweet(t8);
+        u2.addTweet(t9);
+        
+        u3.addTweet(t10);        
+        
         userDAO.create(u1);
         userDAO.create(u2);
         userDAO.create(u3);

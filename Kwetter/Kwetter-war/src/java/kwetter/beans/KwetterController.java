@@ -6,8 +6,10 @@ package kwetter.beans;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import kwetter.domain.Tweet;
 import kwetter.domain.User;
@@ -20,9 +22,7 @@ import kwetter.service.KwetterService;
 @Named
 @RequestScoped
 public class KwetterController {
-
     
-    //dit moet via CDI
     private KwetterService kws;    
     /**
      * Creates a new instance of KwetterController
@@ -37,7 +37,7 @@ public class KwetterController {
      * @return lijst van alle tweets van User user
      */
     public List<Tweet> getTweetsFromUser(User user){
-        List<Tweet> l = new ArrayList<>();
+        List<Tweet> l = new ArrayList<Tweet>();
         for (Tweet t : user.getTweets()) {
             l.add(t);
         }
@@ -81,7 +81,7 @@ public class KwetterController {
      * @param id
      * @return
      */
-    public User find(Long id){
+    public User find(Long id){        
         return kws.find(id);
     }
     
