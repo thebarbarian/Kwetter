@@ -11,7 +11,7 @@ body {
 }
 
 html {
-    background-image: url("../../images/snowy2.jpg");    
+    background-image: url('images/snowy2.jpg');    
     background-repeat: no-repeat;    
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -140,7 +140,7 @@ tr.jsfcrud_even_row {
 #container{
     width:550px;    
     margin: 0 0 0 20px;
-    background-image: url('images/snowy-mountain.jpg');
+    /*background-image: url('images/snowy-mountain.jpg');*/
 }
 
 #Login{
