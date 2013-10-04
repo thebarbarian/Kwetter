@@ -36,10 +36,10 @@ public class User implements Serializable  {
     }
     
     @OneToMany
-    private Collection<User> following = new ArrayList();
+    private ArrayList<User> following = new ArrayList();
     
     @OneToMany
-    private Collection<Tweet> tweets = new ArrayList();
+    private ArrayList<Tweet> tweets = new ArrayList();
 
     public User() {
     }
@@ -96,11 +96,11 @@ public class User implements Serializable  {
         this.web = web;
     }
 
-    public Collection<User> getFollowing() {
-        return Collections.unmodifiableCollection(following);
+    public ArrayList<User> getFollowing() {
+        return following;
     }
 
-    public void setFollowing(Collection<User> following) {
+    public void setFollowing(ArrayList<User> following) {
         this.following = following;
     }
 
@@ -108,7 +108,7 @@ public class User implements Serializable  {
         return Collections.unmodifiableCollection(tweets);
     }
 
-    public void setTweets(Collection<Tweet> tweets) {
+    public void setTweets(ArrayList<Tweet> tweets) {
         this.tweets = tweets;
     }
 

@@ -1,7 +1,7 @@
 package kwetter.dao;
 
+import java.util.ArrayList;
 import kwetter.domain.User;
-import java.util.List;
 
 public interface UserDAO {
 
@@ -11,7 +11,7 @@ public interface UserDAO {
 
     void edit(User user);
 
-    List<User> findAll();
+    ArrayList<User> findAll();
 
     User find(Long id);
 

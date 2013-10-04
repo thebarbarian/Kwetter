@@ -24,11 +24,13 @@ import kwetter.service.KwetterService;
 public class KwetterController {
     
     private KwetterService kws;    
+    private User selectedUser;
     /**
      * Creates a new instance of KwetterController
      */
     public KwetterController() {
         kws = new KwetterService();
+        selectedUser=kws.find(1L); // zet een default user voor als de pagina voor het eerst gelaaien wordt.       
     }
     
     /**
@@ -36,8 +38,8 @@ public class KwetterController {
      * @param user
      * @return lijst van alle tweets van User user
      */
-    public List<Tweet> getTweetsFromUser(User user){
-        List<Tweet> l = new ArrayList<Tweet>();
+    public ArrayList<Tweet> getTweetsFromUser(User user){
+        ArrayList<Tweet> l = new ArrayList<Tweet>();
         for (Tweet t : user.getTweets()) {
             l.add(t);
         }
@@ -93,7 +95,7 @@ public class KwetterController {
         kws.remove(user);
     }
 
-     public Collection<User> getAllUsersFollowedBy(User u){
+     public ArrayList<User> getAllUsersFollowedBy(User u){
          return kws.getAllUsersFollowedBy(u);
      }
     
@@ -101,7 +103,7 @@ public class KwetterController {
      *
      * @return
      */
-    public List<User> findAll() {
+    public ArrayList<User> findAll() {
         return kws.findAll();
     }
 
@@ -147,5 +149,19 @@ public class KwetterController {
      */
     public int getAllTweetsCount(){
         return kws.getAllTweetsCount();
+    }
+
+    /**
+     * @return the selectedUser
+     */
+    public User getSelectedUser() {
+        return selectedUser;
+    }
+
+    /**
+     * @param selectedUser the selectedUser to set
+     */
+    public void setSelectedUser(User selectedUser) {
+        this.selectedUser = selectedUser;
     }
 }
