@@ -45,7 +45,17 @@ public class KwetterController {
         }
         return l;
     }        
-        
+    
+    public User login(String username, String password){
+        User u = kws.findUser(username);
+        if(u==null) throw new NullPointerException("user does not exist.");
+        if(u.isPasswordCorrect(password)){
+            return u;
+        }
+        else throw new NullPointerException("password fault.");
+    }
+    
+    
     /**
      * aanmaken gebruiker
      * @return succes msg

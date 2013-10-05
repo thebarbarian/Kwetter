@@ -103,6 +103,13 @@ public class KwetterService {
         return t;
     }
     
+    public User findUser(String username){
+        if(username==null){
+            throw new NullPointerException("param username cannot be null");
+        }
+        return userDAO.find(username);
+    }
+    
     public ArrayList<Tweet> getTweetsFromFollowers(User jan){
         List<User> allUsers = this.findAll();
         ArrayList<Tweet> msgs = new ArrayList<Tweet>();
@@ -155,6 +162,11 @@ public class KwetterService {
         u2.setId(1L);
         u3.setId(2L);
         u4.setId(3L);
+        
+        u1.setPassword("Hans123");
+        u2.setPassword("Frank123");
+        u3.setPassword("Tom123");
+        u4.setPassword("Sjaak123");
         
         u1.addFollowing(u2);
         u1.addFollowing(u3);

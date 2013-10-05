@@ -51,4 +51,19 @@ public class UserDAOCollectionImpl implements UserDAO {
         }
         throw new IllegalArgumentException("user with id" + id+ " not found.");
     }
+    
+    // Overloaded methode om op username te zoeken tbv logingedoe.
+    @Override
+    public User find(String username) {
+        if(username == null){
+            throw new NullPointerException("param username cannot be null");
+        }
+        System.out.println(users);
+        for(User u : users){
+            if(u.getName().equals(username)){
+                return u;
+            }
+        }
+        throw new IllegalArgumentException("user with username" + username + " not found.");
+    }
 }
