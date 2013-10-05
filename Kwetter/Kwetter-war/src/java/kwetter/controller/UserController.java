@@ -7,6 +7,7 @@ package kwetter.controller;
 import java.io.Serializable;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
+import kwetter.beans.KwetterController;
 import kwetter.domain.User;
 
 /**
@@ -20,6 +21,21 @@ public class UserController implements Serializable {
     
     public String login(){
         return "not implemented yet.";
+    }
+    
+    public String login(String username, String password){
+        if(username != null && password !=null){
+            KwetterController kc = new KwetterController();
+            User u = kc.login(username, password);
+            if(u != null){
+                return "profile.xhtml";
+            }else{
+                return "403.xhtml";
+            }        
+        }else{
+            return "Error.xhtml";
+        }
+    
     }
     
     
