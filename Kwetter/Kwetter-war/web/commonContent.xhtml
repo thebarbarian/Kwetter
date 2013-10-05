@@ -4,28 +4,35 @@
 <html xmlns="http://www.w3.org/1999/xhtml"   
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      >
+
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <body>
         <ui:composition>
 
 
             <div class="row">
                 <div class="col-lg-8">
-                    <img class="img-responsive img-rounded" src="http://placekitten.com/900/350"/><!-- take out img-rounded if you don't want the rounded corners on the image -->
+                    <img class="img-responsive img-rounded" src="http://placekitten.com/900/600"/><!-- take out img-rounded if you don't want the rounded corners on the image -->
                 </div>
                 <div class="col-lg-4">
                     <div id="content">
-                        <h1> Tweets</h1>
-                        <div id="tweetMon">                                    
-                            <ui:insert name="tweetMonitor">               
-                                <h:dataTable border="1" value="#{kwetterController.getTweetsFromUser(kwetterController.getSelectedUser())}" var="item">
-                                    <h:column>#{kwetterController.getSelectedUser().name}</h:column>                        
-                                    <h:column>#{item.datum}</h:column>                        
-                                    <h:column>#{item.tweet}</h:column>
-                                    <h:column>#{item.vanaf}</h:column>
-                                </h:dataTable>                             
-                            </ui:insert>                 
-                        </div>         
+                        <div class="panel panel-primary">
+                            <div class="panel-heading"><h2> Tweets</h2></div>
+                            <div class="panel-body">
+                                <div id="tweetMon" class="list-group">                                    
+                                    <ui:insert name="tweetMonitor">      
+                                        <c:forEach items="#{kwetterController.getTweetsFromUser(kwetterController.getSelectedUser())}" var="tweet">
+                                            <div class="list-group-item-heading">
+                                                <h4>#{tweet.tweet}</h4>
+                                            </div>
+                                            <div class="list-group-item-text">
+                                                #{kwetterController.getSelectedUser().name} at #{tweet.datum} from #{tweet.vanaf}
+                                            </div>
+                                        </c:forEach>
+                                    </ui:insert>                 
+                                </div> 
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -71,14 +78,14 @@
                         <p>
                             <ui:insert name="FollowingWin">
                                 <h:dataTable border="1" value="#{kwetterController.getAllUsersFollowedBy(kwetterController.getSelectedUser())}" var="item">
-                            <h:column>
-                                <h:form>
-                                    <h:inputHidden value="#{item}"></h:inputHidden>
-                                    <h:commandLink id="selectedUser" action="#{kwetterController.setSelectedUser(item)}" value="#{item.name}">
-                                    
-                                </h:commandLink>
-                                </h:form>
-                            </h:column>                                                      
+                                    <h:column>
+                                        <h:form>
+                                            <h:inputHidden value="#{item}"></h:inputHidden>
+                                            <h:commandLink id="selectedUser" action="#{kwetterController.setSelectedUser(item)}" value="#{item.name}">
+
+                                            </h:commandLink>
+                                        </h:form>
+                                    </h:column>                                                      
                                 </h:dataTable>   
                             </ui:insert>         
                         </p>
