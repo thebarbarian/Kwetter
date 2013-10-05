@@ -42,7 +42,14 @@ public class KwetterService {
     public void edit(User user) {
         throw new UnsupportedOperationException("Not supported yet."); 
     }
-
+    
+    public void createNewTweet(User user, String tekst){         
+        Tweet t = new Tweet(tekst,new Date(),"internet" ,user);
+        // wat betekent het vanaf-attribuut ?
+        User u = userDAO.find(user.getId());
+        u.addTweet(t);
+    }
+    
     /**
      *
      * @param user
@@ -112,7 +119,7 @@ public class KwetterService {
     
     public ArrayList<Tweet> getTweetsFromFollowers(User jan){
         List<User> allUsers = this.findAll();
-        ArrayList<Tweet> msgs = new ArrayList<Tweet>();
+        ArrayList<Tweet> msgs = new ArrayList<>();
         for(User h:allUsers){
             if(h.getName() == null ? jan.getName() == null : h.getName().equals(jan.getName())){
                 for(Tweet y:h.getTweets()){
