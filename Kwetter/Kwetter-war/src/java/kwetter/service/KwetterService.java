@@ -123,6 +123,32 @@ public class KwetterService {
         return msgs;
     }
     
+    /*
+     * alle tekst van tweets en alle usernames worden doorzocht.
+     * Dit is de reden voor bidirectionele relatie tussen tweet en user.
+     * 
+     * @input : zoekterm search
+     * @output : verzameling tweets waar zoekterm in voorkomt of tweets van bepaalde user
+     */
+    public ArrayList<Tweet> searchAllTweets(String search){
+        ArrayList<Tweet> verzamelingTotaal = new ArrayList<>();
+        ArrayList<Tweet> resultaat = new ArrayList<>();
+        for(User u:userDAO.findAll()){
+            for(Tweet k:u.getTweets()){
+                verzamelingTotaal.add(k);
+            }
+        }
+        for (Tweet r:verzamelingTotaal){
+            if(r.getTweet().toLowerCase().contains(search.toLowerCase())){
+                resultaat.add(r);
+            if(r.getUser().getName().toLowerCase().contains(search.toLowerCase())){
+                resultaat.add(r);
+            }
+            }   
+        }
+        return resultaat;
+    }
+    
      /**
      *
      * @param u
@@ -172,16 +198,16 @@ public class KwetterService {
         u1.addFollowing(u3);
         u1.addFollowing(u4);
 
-        Tweet t1 = new Tweet("Hallo", new Date(), "PC");
-        Tweet t2 = new Tweet("Hallo again", new Date(), "PC");
-        Tweet t3 = new Tweet("Hallo where are you", new Date(), "PC");
-        Tweet t4 = new Tweet("Time to rock!", new Date(), "PC");
-        Tweet t5 = new Tweet("time to sleep -_-", new Date(), "PC");
-        Tweet t6 = new Tweet("How about jij gaat aan het werk of zo", new Date(), "PC");
-        Tweet t7 = new Tweet("Niks beters te doen dan ?", new Date(), "PC");
-        Tweet t8 = new Tweet("Prinsjesdag maakt koekjes goedkoper!", new Date(), "PC");
-        Tweet t9 = new Tweet("imma let you finish.", new Date(), "PC");
-        Tweet t10 = new Tweet("OMG NOOOOooooooo", new Date(), "PC");
+        Tweet t1 = new Tweet("Hallo", new Date(), "PC",u1);
+        Tweet t2 = new Tweet("Hallo again", new Date(), "PC",u1);
+        Tweet t3 = new Tweet("Hallo where are you", new Date(), "PC",u1);
+        Tweet t4 = new Tweet("Time to rock!", new Date(), "PC",u2);
+        Tweet t5 = new Tweet("time to sleep -_-", new Date(), "PC",u2);
+        Tweet t6 = new Tweet("How about jij gaat aan het werk of zo", new Date(), "PC",u2);
+        Tweet t7 = new Tweet("Niks beters te doen dan ?", new Date(), "PC",u3);
+        Tweet t8 = new Tweet("Prinsjesdag maakt koekjes goedkoper!", new Date(), "PC",u2);
+        Tweet t9 = new Tweet("imma let you finish.", new Date(), "PC",u2);
+        Tweet t10 = new Tweet("OMG NOOOOooooooo", new Date(), "PC",u3);
         u1.addTweet(t1);
         u1.addTweet(t2);
         u1.addTweet(t3);

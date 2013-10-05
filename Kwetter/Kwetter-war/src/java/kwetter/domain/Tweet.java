@@ -20,6 +20,7 @@ public class Tweet implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String tweet;
+    private User user;
     
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date postDate;
@@ -32,10 +33,11 @@ public class Tweet implements Serializable {
         this.tweet = tweet;
     }
 
-    public Tweet(String tweet, Date datum, String vanaf) {
+    public Tweet(String tweet, Date datum, String vanaf, User gebruiker) {
         this.tweet = tweet;
         this.postDate = datum;
         this.postedFrom = vanaf;
+        this.user = gebruiker;
     }
 
     public Long getId() {
@@ -92,6 +94,20 @@ public class Tweet implements Serializable {
     @Override
     public String toString() {
         return "twitter.domain.Tweet[id=" + postDate.toString() + "]";
+    }
+
+    /**
+     * @return the user
+     */
+    public User getUser() {
+        return user;
+    }
+
+    /**
+     * @param user the user to set
+     */
+    public void setUser(User user) {
+        this.user = user;
     }
 
 }
