@@ -7,7 +7,7 @@ import kwetter.domain.User;
 
 public class UserDAOCollectionImpl implements UserDAO {
 
-    private List<User> users;
+    private ArrayList<User> users;
 
     public UserDAOCollectionImpl() {
         users = new ArrayList();
@@ -29,7 +29,7 @@ public class UserDAOCollectionImpl implements UserDAO {
     }
 
     @Override
-    public List<User> findAll() {
+    public ArrayList<User> findAll() {
         return new ArrayList(users);
     }
 

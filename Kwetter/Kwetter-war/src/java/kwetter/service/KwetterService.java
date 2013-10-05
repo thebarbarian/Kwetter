@@ -59,7 +59,7 @@ public class KwetterService {
      *
      * @return lijst met alle usernames
      */
-    public List<User> findAll() { 
+    public ArrayList<User> findAll() { 
         return userDAO.findAll();
     }
     

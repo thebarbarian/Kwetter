@@ -42,7 +42,7 @@
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container -->
         </nav>
-        <div id="container">
+        <div id="container">          
 
             <div class="row">
                 <div class="col-lg-8">
@@ -77,62 +77,143 @@
 
             <div class="row">
                 <div class="col-lg-4">                           
-                    <ui:insert name="Login">
-                        <h:form id="Login">
+                    <ui:insert name="Login"></ui:insert>
+                        <h:form id="Login2">
                             <h:outputText value="Username:"/>
                             <h:messages style="color:red" />
                             <h:inputText  value ="#{userController.user.name}" styleClass="myInput" required="true"/>
                             <BR/><h:outputText value="Password:"/>
                             <h:inputSecret value="#{userController.user.password}" styleClass="myInput" required="true"/>
-                            <h:commandButton action="#{userController.doCreateUser(username)}" value="Login" />
+                            <h:commandButton action="#{userController.doCreateUser(username)}" value="Login" />     
                         </h:form>
-                    </ui:insert>                    
-                </div>
-                <div class="col-lg-4">
+                        <h1>
+                            <ui:insert name="title">Java Server Faces Twitter!</ui:insert>
+                        </h1>
+                        <div id="body">
+                            <p>
+                                <ui:insert name="body">Hier komt te staan waarom het zo geweldig is.         
+                                    <ui:insert name="Login">
+                                        <h:form id="Login">
+                                            <h:outputText value="Username:"/>
+                                            <h:messages style="color:red" />
+                                            <h:inputText  value ="#{userController.user.name}" styleClass="myInput" required="true"/>
+                                            <BR/><h:outputText value="Password:"/>
+                                            <h:inputSecret value="#{userController.user.password}" styleClass="myInput" required="true"/>
+                                            <h:commandButton action="#{userController.login()}" value="Login" />
+                                        </h:form>
+                                    </ui:insert></ui:insert>  
+                            </p>       
 
-                    <div id="totalsWindow>">
-                        <p>
-                            <ui:insert name="allInfo">
-                                <h:form>
-                                    <h:link outcome="index.xhtml">#{kwetterController.getNrOfFollowing(kwetterController.find(1))} following</h:link> <BR/>                       
-                                    <h:link outcome="index.xhtml">#{kwetterController.getNrOfFollowedBy(kwetterController.find(1))} followers</h:link>                        <BR/>
-                                    <h:link outcome="index.xhtml">Tweets : #{kwetterController.allTweetsCount}</h:link>                                                <BR/>
-                                </h:form>
-                            </ui:insert>         
-                        </p>
-                    </div>
+                        </div>
+                        <div id="content-dup">
+                            <p>
+                                <ui:insert name="content" >Het gaat om de inhoud he.</ui:insert>  
+                            </p>
+                        </div>
+                        <div id="tweetWindow">
+                            <p>
+                                <ui:insert name="tweetWindow">Default Tweetz0r
+                                    <h:form>                 
 
-                    <div id="FollowingWindow>">
-                        <p>
-                            <ui:insert name="FollowingWin">
-                                <h:dataTable border="1" value="#{kwetterController.getAllUsersFollowedBy(kwetterController.find(2))}" var="item">
-                                    <h:column>Naam : #{item.name}</h:column>                                                    
-                                </h:dataTable>   
-                            </ui:insert>         
-                        </p>
+                                    </h:form>
+
+                                </ui:insert>
+                            </p>
+                        </div>
+                        <div id ="bioWin">
+                            <p>
+                                <ui:insert name="bioWindow">
+                                    <h:outputLabel>Name : </h:outputLabel><h:outputLabel>#{kwetterController.find(2).name}</h:outputLabel><BR/>            
+                                    <h:outputLabel>Web : </h:outputLabel><h:outputLabel>#{kwetterController.find(2).web}</h:outputLabel><BR/>
+                                    <h:outputLabel>Bio : </h:outputLabel><h:outputLabel>#{kwetterController.find(2).bio}</h:outputLabel><BR/>
+                                </ui:insert>
+
+                            </p>
+                        </div>
+
+                        <div id="tweetMon-dup">
+                            <p>            
+                                <ui:insert name="tweetMonitor">                               
+                                    <h:dataTable border="1" value="#{kwetterController.getTweetsFromUser(kwetterController.getSelectedUser())}" var="item">
+                                        <h:column>#{kwetterController.getSelectedUser().name}</h:column>                        
+                                        <h:column>#{item.datum}</h:column>                        
+                                        <h:column>#{item.tweet}</h:column>
+                                        <h:column>#{item.vanaf}</h:column>
+                                    </h:dataTable>                             
+                                </ui:insert>                 
+                            </p>
+                        </div>
+
+                        <div id="totalsWindow-dup">
+                            <p>
+                                <ui:insert name="allInfo">
+                                    <h:form>
+                                        <h:link outcome="index.xhtml">#{kwetterController.getNrOfFollowing(kwetterController.find(1))} following</h:link> <BR/>                       
+                                        <h:link outcome="index.xhtml">#{kwetterController.getNrOfFollowedBy(kwetterController.find(1))} followers</h:link>                        <BR/>
+                                        <h:link outcome="index.xhtml">Tweets : #{kwetterController.allTweetsCount}</h:link>                                                <BR/>
+
+                                    </h:form>
+                                </ui:insert>     
+                            </p>
+                        </div>
+                        <div class="col-lg-4">
+
+                            <div id="totalsWindow-dup">
+                                <p>
+                                    <ui:insert name="allInfo">
+                                        <h:form>
+                                            <h:link outcome="index.xhtml">#{kwetterController.getNrOfFollowing(kwetterController.find(1))} following</h:link> <BR/>                       
+                                            <h:link outcome="index.xhtml">#{kwetterController.getNrOfFollowedBy(kwetterController.find(1))} followers</h:link>                        <BR/>
+                                            <h:link outcome="index.xhtml">Tweets : #{kwetterController.allTweetsCount}</h:link>                                                <BR/>
+                                        </h:form>
+                                    </ui:insert>         
+                                </p>
+                            </div>
+
+                            <div id="FollowingWindow-dup-dup">
+                                <p>
+                                    <div id="FollowingWindow-dup2">
+                                        <p>
+                                            <ui:insert name="FollowingWin">
+                                                <h:dataTable border="1" value="#{kwetterController.getAllUsersFollowedBy(kwetterController.getSelectedUser())}" var="item">
+                                                    <h:column>
+                                                        <h:form>
+                                                            <h:inputHidden value="#{item}"></h:inputHidden>
+                                                            <h:commandLink id="selectedUser" action="#{kwetterController.setSelectedUser(item)}" value="#{item.name}">
+
+                                                            </h:commandLink>
+                                                        </h:form>
+                                                    </h:column>                                                    
+                                                </h:dataTable>   
+                                            </ui:insert>         
+                                        </p>
+                                    </div>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <h2> Bio </h2>
+                            <ui:insert name="bioWindow">
+                                <h:outputLabel>Name : </h:outputLabel><h:outputLabel>#{kwetterController.find(2).name}</h:outputLabel><BR/>            
+                                <h:outputLabel>Web : </h:outputLabel><h:outputLabel>#{kwetterController.find(2).web}</h:outputLabel><BR/>
+                                <h:outputLabel>Bio : </h:outputLabel><h:outputLabel>#{kwetterController.find(2).bio}</h:outputLabel><BR/>
+                            </ui:insert>
+                        </div>
+                </div>
+
+
+                <footer>
+                    <hr />
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <p>Copyright PK &amp; DV</p>
+                        </div>
                     </div>
-                </div>
-                <div class="col-lg-4">
-                    <h2> Bio </h2>
-                    <ui:insert name="bioWindow">
-                        <h:outputLabel>Name : </h:outputLabel><h:outputLabel>#{kwetterController.find(2).name}</h:outputLabel><BR/>            
-                        <h:outputLabel>Web : </h:outputLabel><h:outputLabel>#{kwetterController.find(2).web}</h:outputLabel><BR/>
-                        <h:outputLabel>Bio : </h:outputLabel><h:outputLabel>#{kwetterController.find(2).bio}</h:outputLabel><BR/>
-                    </ui:insert>
-                </div>
+                </footer>
+
+                <h:outputScript  name="js/jquery.js"/>
+                <h:outputScript  name="js/bootstrap.js"/>
             </div>
-            
-            <footer>
-                <hr />
-                <div class="row">
-                    <div class="col-lg-12">
-                        <p>Copyright PK &amp; DV</p>
-                    </div>
-                </div>
-            </footer>
-            
-            <h:outputScript  name="js/jquery.js"/>
-            <h:outputScript  name="js/bootstrap.js"/>
         </div>
     </h:body>
 
