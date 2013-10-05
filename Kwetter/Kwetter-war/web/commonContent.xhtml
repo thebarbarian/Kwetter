@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"   
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       >
     <body>
-	    <ui:composition>
- 
-		
+        <ui:composition>
+
+
             <div class="row">
                 <div class="col-lg-8">
                     <img class="img-responsive img-rounded" src="http://placekitten.com/900/350"/><!-- take out img-rounded if you don't want the rounded corners on the image -->
@@ -17,9 +17,9 @@
                     <div id="content">
                         <h1> Tweets</h1>
                         <div id="tweetMon">                                    
-                            <ui:insert name="tweetMonitor">                               
-                                <h:dataTable border="1" value="#{kwetterController.getTweetsFromUser(kwetterController.find(1))}" var="item">
-                                    <h:column>#{kwetterController.find(1).name}</h:column>                        
+                            <ui:insert name="tweetMonitor">               
+                                <h:dataTable border="1" value="#{kwetterController.getTweetsFromUser(kwetterController.getSelectedUser())}" var="item">
+                                    <h:column>#{kwetterController.getSelectedUser().name}</h:column>                        
                                     <h:column>#{item.datum}</h:column>                        
                                     <h:column>#{item.tweet}</h:column>
                                     <h:column>#{item.vanaf}</h:column>
@@ -70,8 +70,15 @@
                     <div id="FollowingWindow>">
                         <p>
                             <ui:insert name="FollowingWin">
-                                <h:dataTable border="1" value="#{kwetterController.getAllUsersFollowedBy(kwetterController.find(2))}" var="item">
-                                    <h:column>Naam : #{item.name}</h:column>                                                    
+                                <h:dataTable border="1" value="#{kwetterController.getAllUsersFollowedBy(kwetterController.getSelectedUser())}" var="item">
+                            <h:column>
+                                <h:form>
+                                    <h:inputHidden value="#{item}"></h:inputHidden>
+                                    <h:commandLink id="selectedUser" action="#{kwetterController.setSelectedUser(item)}" value="#{item.name}">
+                                    
+                                </h:commandLink>
+                                </h:form>
+                            </h:column>                                                      
                                 </h:dataTable>   
                             </ui:insert>         
                         </p>
@@ -86,7 +93,7 @@
                     </ui:insert>
                 </div>
             </div>
- 
-	    </ui:composition>
+
+        </ui:composition>
     </body>
 </html>
