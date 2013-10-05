@@ -51,12 +51,12 @@
                 <div class="col-lg-4">                           
                     <ui:insert name="Login">
                         <h:form id="Login">
-                            <h:outputText value="Username:"/>
+                            Username
                             <h:messages style="color:red" />
                             <h:inputText  value ="#{userController.user.name}" styleClass="myInput" required="true"/>
-                            <BR/><h:outputText value="Password:"/>
+                            <BR/>Password
                             <h:inputSecret value="#{userController.user.password}" styleClass="myInput" required="true"/>
-                            <h:commandButton action="#{userController.doCreateUser(username)}" value="Login" />
+                            <h:commandButton action="#{userController.login(name,password)}" value="Login" />
                         </h:form>
                     </ui:insert>                    
                 </div>
