@@ -8,7 +8,9 @@ Kwetter/nbproject/
 private/
 
 private.properties
-
+Kwetter/Kwetter-ejb/nbproject/private/private.properties
+Kwetter/Kwetter-war/nbproject/private/private.properties
+Kwetter/nbproject/private/private.properties
 *.class
 
 # Package Files #
