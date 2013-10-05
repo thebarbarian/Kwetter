@@ -2,9 +2,15 @@ package kwetter.service;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import kwetter.dao.UserDAO;
 import kwetter.dao.UserDAOCollectionImpl;
 import kwetter.domain.Tweet;
@@ -43,11 +49,77 @@ public class KwetterService {
         throw new UnsupportedOperationException("Not supported yet."); 
     }
     
+    /*
+     * Tweet toevoegen van opdracht 3 :
+     * 
+     */
     public void createNewTweet(User user, String tekst){         
         Tweet t = new Tweet(tekst,new Date(),"internet" ,user);
         // wat betekent het vanaf-attribuut ?
         User u = userDAO.find(user.getId());
         u.addTweet(t);
+    }
+    
+    public ArrayList<Tweet> getTimeLine(User u){
+        ArrayList<Tweet> t = new ArrayList<>();
+        for(User k:u.getFollowing()){
+            for(Tweet p:k.getTweets()){
+                t.add(p);
+            }
+        }
+        for(Tweet y:u.getTweets()){
+            t.add(y);
+        }       
+        orderTweetsByDate(t);
+        return t;
+    }
+    
+    public ArrayList<Tweet> getMentions(User u){
+        return searchAllTweets("@"+u.getName());
+    }
+    
+    public HashMap<String, Integer> getTrends(){
+        // maak een lijst van alle hashtags in alle tweets :
+        HashMap<String, Integer> hashList = new HashMap<>();
+        // doorzoek alle tweets op hashtags '#+tekst' 
+        // Geef alle tweets terug met een hashtag erin :
+        ArrayList<Tweet> t = searchAllTweets("#");
+        List<String> strlijst;
+        strlijst = new ArrayList<>();
+        // Haal de hashtags uit de tweets :
+        for(Tweet e:t){           
+            String str=e.getTweet();
+            Pattern MY_PATTERN = Pattern.compile("#(\\w+|\\W+)");
+            Matcher mat = MY_PATTERN.matcher(str);            
+            while (mat.find()) {
+              //System.out.println(mat.group(1));
+              strlijst.add(mat.group(1));
+            }}
+            for(String w:strlijst){            
+            if(hashList.containsKey(w)){
+                hashList.put(w, (hashList.get(w)+1));
+            }
+            else
+                hashList.put(w,1);
+            }      
+            return hashList;
+    }                
+    
+    
+    /*
+     * Sorteer de tweets op volgorde van timestamp
+     * 
+     */
+    public ArrayList<Tweet> orderTweetsByDate(ArrayList<Tweet> lijstje){  
+        
+        // als het goed is komt de laatste datum bovenaan.        
+        Collections.sort(lijstje, new Comparator<Tweet>() {
+        @Override
+        public int compare(Tweet o1, Tweet o2) {
+        return o2.getDatum().compareTo(o1.getDatum());
+        }
+        });
+        return lijstje;        
     }
     
     /**

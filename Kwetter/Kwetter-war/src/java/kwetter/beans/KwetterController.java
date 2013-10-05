@@ -6,6 +6,7 @@ package kwetter.beans;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import javax.enterprise.context.RequestScoped;
@@ -45,6 +46,28 @@ public class KwetterController {
         }
         return l;
     }        
+    
+    public ArrayList<Tweet> getTimeLine(User u){
+        if(u!=null){
+            return kws.getTimeLine(u);
+        }
+        else throw new NullPointerException("User is null in getTimeLine");       
+    }
+    
+     public ArrayList<Tweet> getMentions(User u){
+         if(u!=null){
+             return kws.getMentions(u);
+         }
+         else throw new NullPointerException("geen user ingevoerd bij GetMentions()");
+     }
+    
+    
+    public HashMap<String, Integer> getTrends(){
+        if(kws.getTrends()!=null){
+            return kws.getTrends();
+        }
+        else throw new NullPointerException("Geen trends aanwezig");        
+    }
     
     public User login(String username, String password){
         User u = kws.findUser(username);
