@@ -16,60 +16,59 @@ import javax.persistence.OneToMany;
  * @author 871641
  */
 @Entity
-public class User implements Serializable  {
-    private static final long serialVersionUID = 1L;
+public class User implements Serializable {
 
-    @Id    
+    private static final long serialVersionUID = 1L;
+    @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
     private String web;
     private String bio;
     private String password;
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-    
-    public boolean isPasswordCorrect(String testedPassword){
-        return this.password.equals(testedPassword);
-    }
-    
     @OneToMany
     private ArrayList<User> following = new ArrayList();
-    
     @OneToMany
     private ArrayList<Tweet> tweets = new ArrayList();
 
     public User() {
     }
 
-    public String getPassword(){
-        return password;
-    }
-    public Long getId() {
-	return id;
-    }
-
-    public void setId(Long id) {
-	this.id = id;
-    }
-    
     public User(String naam) {
         this.name = naam;
     }
-    
-     public User(String naam, String password) {
+
+    public User(String naam, String password) {
         this.name = naam;
         this.password = password;
     }
 
-    public User(String naam, String web, String bio) {
+    public User(String naam, String password, String web, String bio) {
         this.name = naam;
         this.web = web;
         this.bio = bio;
     }
-    
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public boolean isPasswordCorrect(String testedPassword) {
+        return this.password.equals(testedPassword);
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getBio() {
         return bio;
     }
@@ -110,11 +109,11 @@ public class User implements Serializable  {
         this.tweets = tweets;
     }
 
-    public Boolean addFollowing(User following){
+    public Boolean addFollowing(User following) {
         return this.following.add(following);
     }
-  
-    public Boolean addTweet(Tweet tweet){
+
+    public Boolean addTweet(Tweet tweet) {
         return this.tweets.add(tweet);
     }
 
@@ -165,15 +164,11 @@ public class User implements Serializable  {
 
     @Override
     public String toString() {
-        return "User{" + "id=" + id + ", name=" + name + ", web=" + web + ", bio=" + bio + ", password=" + password + '}'+"\n";
+        return "User{" + "id=" + id + ", name=" + name + ", web=" + web + ", bio=" + bio + ", password=" + password + '}' + "\n";
     }
-
-
 
     @Override
     protected Object clone() throws CloneNotSupportedException {
         return super.clone(); //To change body of generated methods, choose Tools | Templates.
     }
-    
-    
 }

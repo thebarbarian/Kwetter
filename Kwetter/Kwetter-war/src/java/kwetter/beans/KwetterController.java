@@ -5,12 +5,9 @@
 package kwetter.beans;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import javax.enterprise.context.RequestScoped;
-import javax.inject.Inject;
 import javax.inject.Named;
 import kwetter.domain.Tweet;
 import kwetter.domain.User;
@@ -40,7 +37,7 @@ public class KwetterController {
      * @return lijst van alle tweets van User user
      */
     public ArrayList<Tweet> getTweetsFromUser(User user){
-        ArrayList<Tweet> l = new ArrayList<Tweet>();
+        ArrayList<Tweet> l = new ArrayList<>();
         for (Tweet t : user.getTweets()) {
             l.add(t);
         }
@@ -136,7 +133,7 @@ public class KwetterController {
      *
      * @return
      */
-    public ArrayList<User> findAll() {
+    public List<User> findAll() {
         return kws.findAll();
     }
 

@@ -1,14 +1,11 @@
 package kwetter.service;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import kwetter.dao.UserDAO;
@@ -138,7 +135,7 @@ public class KwetterService {
      *
      * @return lijst met alle usernames
      */
-    public ArrayList<User> findAll() { 
+    public List<User> findAll() { 
         return userDAO.findAll();
     }
     
@@ -258,20 +255,15 @@ public class KwetterService {
     }
     
     private void initUsers() {
-        User u1 = new User("Hans", "http", "geboren 1");
-        User u2 = new User("Frank", "httpF", "geboren 2");
-        User u3 = new User("Tom", "httpT", "geboren 3");
-        User u4 = new User("Sjaak", "httpS", "geboren 4");
+        User u1 = new User("Hans","Hans123", "http", "geboren 1");
+        User u2 = new User("Frank","Fank123", "httpF", "geboren 2");
+        User u3 = new User("Tom", "Tom123","httpT", "geboren 3");
+        User u4 = new User("Sjaak","Sjaak123", "httpS", "geboren 4");
         
         u1.setId(0L);
         u2.setId(1L);
         u3.setId(2L);
         u4.setId(3L);
-        
-        u1.setPassword("Hans123");
-        u2.setPassword("Frank123");
-        u3.setPassword("Tom123");
-        u4.setPassword("Sjaak123");
         
         u1.addFollowing(u2);
         u1.addFollowing(u3);
