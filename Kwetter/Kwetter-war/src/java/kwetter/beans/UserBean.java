@@ -9,7 +9,7 @@ import java.util.Collection;
 import javax.inject.Inject;
 import javax.inject.Named;
 import kwetter.domain.Tweet;
-import kwetter.domain.User;
+import kwetter.domain.TweetUser;
 
 /**
  *
@@ -25,7 +25,7 @@ public class UserBean {
     private String web;
     private String bio;
 
-    private Collection<User> following = new ArrayList();
+    private Collection<TweetUser> following = new ArrayList();
     private Collection<Tweet> tweets = new ArrayList();       
     
     /**
@@ -50,11 +50,11 @@ public class UserBean {
         this.bio = bio;
     }
     
-    public Collection<User> getFollowing(){
+    public Collection<TweetUser> getFollowing(){
         return this.following;
     }
     
-    public void setFollowing(Collection<User> following) {
+    public void setFollowing(Collection<TweetUser> following) {
         this.following = following;
     }
     
@@ -66,7 +66,7 @@ public class UserBean {
         this.tweets = tweets;
     }
 
-    public Boolean addFollowing(User following){
+    public Boolean addFollowing(TweetUser following){
         return this.following.add(following);
     }   
     

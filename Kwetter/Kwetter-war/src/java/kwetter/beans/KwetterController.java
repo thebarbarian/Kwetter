@@ -10,7 +10,7 @@ import java.util.List;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import kwetter.domain.Tweet;
-import kwetter.domain.User;
+import kwetter.domain.TweetUser;
 import kwetter.service.KwetterService;
 
 /**
@@ -22,7 +22,7 @@ import kwetter.service.KwetterService;
 public class KwetterController {
     
     private KwetterService kws;    
-    private User selectedUser;
+    private TweetUser selectedUser;
     /**
      * Creates a new instance of KwetterController
      */
@@ -36,7 +36,7 @@ public class KwetterController {
      * @param user
      * @return lijst van alle tweets van User user
      */
-    public ArrayList<Tweet> getTweetsFromUser(User user){
+    public ArrayList<Tweet> getTweetsFromUser(TweetUser user){
         ArrayList<Tweet> l = new ArrayList<>();
         for (Tweet t : user.getTweets()) {
             l.add(t);
@@ -44,14 +44,14 @@ public class KwetterController {
         return l;
     }        
     
-    public ArrayList<Tweet> getTimeLine(User u){
+    public ArrayList<Tweet> getTimeLine(TweetUser u){
         if(u!=null){
             return kws.getTimeLine(u);
         }
         else throw new NullPointerException("User is null in getTimeLine");       
     }
     
-     public ArrayList<Tweet> getMentions(User u){
+     public ArrayList<Tweet> getMentions(TweetUser u){
          if(u!=null){
              return kws.getMentions(u);
          }
@@ -66,8 +66,8 @@ public class KwetterController {
         else throw new NullPointerException("Geen trends aanwezig");        
     }
     
-    public User login(String username, String password){
-        User u = kws.findUser(username);
+    public TweetUser login(String username, String password){
+        TweetUser u = kws.findUser(username);
         if(u==null) throw new NullPointerException("user does not exist.");
         if(u.isPasswordCorrect(password)){
             return u;
@@ -80,7 +80,7 @@ public class KwetterController {
      * aanmaken gebruiker
      * @return succes msg
      */
-    public String create(User u){
+    public String create(TweetUser u){
         kws.create(u);
         return "user aangemaakt";        
     }
@@ -89,21 +89,21 @@ public class KwetterController {
      *
      * @param user
      */
-    public void edit(User user) {
+    public void edit(TweetUser user) {
         throw new UnsupportedOperationException("Not supported yet."); 
     }
     
     /*
      * Haal alle tweets op van volgers
      */
-    public ArrayList<Tweet> getTweetsFromFollowers(User u){
+    public ArrayList<Tweet> getTweetsFromFollowers(TweetUser u){
         return kws.getTweetsFromFollowers(u);
     }
     
     /*
      * Haal alle tweets op van mensen die de user zelf volgt.
      */
-    public ArrayList<Tweet> getTweetsFromFollowedBy(User u){
+    public ArrayList<Tweet> getTweetsFromFollowedBy(TweetUser u){
         return kws.getTweetsFromFollowedBy(u);
     }
     
@@ -113,7 +113,7 @@ public class KwetterController {
      * @param id
      * @return
      */
-    public User find(Long id){        
+    public TweetUser find(Long id){        
         return kws.find(id);
     }
     
@@ -121,11 +121,11 @@ public class KwetterController {
      *
      * @param user
      */
-    public void remove(User user) {
+    public void remove(TweetUser user) {
         kws.remove(user);
     }
 
-     public ArrayList<User> getAllUsersFollowedBy(User u){
+     public ArrayList<TweetUser> getAllUsersFollowedBy(TweetUser u){
          return kws.getAllUsersFollowedBy(u);
      }
     
@@ -133,7 +133,7 @@ public class KwetterController {
      *
      * @return
      */
-    public List<User> findAll() {
+    public List<TweetUser> findAll() {
         return kws.findAll();
     }
 
@@ -159,7 +159,7 @@ public class KwetterController {
      * @param u
      * @return
      */
-    public int getNrOfFollowing(User u)
+    public int getNrOfFollowing(TweetUser u)
     {
         return kws.getNrOfFollowing(u);
     }
@@ -169,7 +169,7 @@ public class KwetterController {
      * @param u
      * @return
      */
-    public int getNrOfFollowedBy(User u){
+    public int getNrOfFollowedBy(TweetUser u){
         return kws.getFollowedBy(u);
     }
     
@@ -184,14 +184,14 @@ public class KwetterController {
     /**
      * @return the selectedUser
      */
-    public User getSelectedUser() {
+    public TweetUser getSelectedUser() {
         return selectedUser;
     }
 
     /**
      * @param selectedUser the selectedUser to set
      */
-    public void setSelectedUser(User selectedUser) {
+    public void setSelectedUser(TweetUser selectedUser) {
         this.selectedUser = selectedUser;
     }
 }

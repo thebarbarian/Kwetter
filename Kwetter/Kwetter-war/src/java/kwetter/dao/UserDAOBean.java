@@ -8,7 +8,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import kwetter.domain.User;
+import kwetter.domain.TweetUser;
 
 /**
  *
@@ -22,34 +22,34 @@ public class UserDAOBean implements UserDAO{
 
     @Override
     public int count() {
-        Query q = em.createQuery("SELECT COUNT(u) from user u");
+        Query q = em.createQuery("SELECT COUNT(u) from TweetUser u");
         return (int) q.getSingleResult();        
     }
 
     @Override
-    public void create(User user) {
+    public void create(TweetUser user) {
         em.persist(user);
     }
 
     @Override
-    public void edit(User user) {
+    public void edit(TweetUser user) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public List<User> findAll() {
-        return em.createQuery("select u from user u", User.class).getResultList();
+    public List<TweetUser> findAll() {
+        return em.createQuery("select u from TweetUser u", TweetUser.class).getResultList();
     }
 
     @Override
-    public User find(Long id) {
-        return em.find(User.class, id);
+    public TweetUser find(Long id) {
+        return em.find(TweetUser.class, id);
     }
 
     @Override
-    public User find(String username) {
-        Query q = em.createNamedQuery("select u from user u where u.username :username");
-        List<User> res = q.getResultList();
+    public TweetUser find(String username) {
+        Query q = em.createNamedQuery("select u from TweetUser u where u.username :username");
+        List<TweetUser> res = q.getResultList();
         
         if(res.size() == 1){
             return res.get(0);
@@ -61,7 +61,7 @@ public class UserDAOBean implements UserDAO{
     }
 
     @Override
-    public void remove(User user) {
+    public void remove(TweetUser user) {
         em.remove(user);
     }
     

@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
 import kwetter.dao.UserDAO;
 import kwetter.dao.UserDAOCollectionImpl;
 import kwetter.domain.Tweet;
-import kwetter.domain.User;
+import kwetter.domain.TweetUser;
 //import javax.ejb.Stateless;
 
 //@Stateless
@@ -34,7 +34,7 @@ public class KwetterService {
      * create user, lijkt logisch
      * @param user
      */
-    public void create(User user) {
+    public void create(TweetUser user) {
         userDAO.create(user);
     }
 
@@ -42,7 +42,7 @@ public class KwetterService {
      *
      * @param user
      */
-    public void edit(User user) {
+    public void edit(TweetUser user) {
         throw new UnsupportedOperationException("Not supported yet."); 
     }
     
@@ -50,16 +50,16 @@ public class KwetterService {
      * Tweet toevoegen van opdracht 3 :
      * 
      */
-    public void createNewTweet(User user, String tekst){         
+    public void createNewTweet(TweetUser user, String tekst){         
         Tweet t = new Tweet(tekst,new Date(),"internet" ,user);
         // wat betekent het vanaf-attribuut ?
-        User u = userDAO.find(user.getId());
+        TweetUser u = userDAO.find(user.getId());
         u.addTweet(t);
     }
     
-    public ArrayList<Tweet> getTimeLine(User u){
+    public ArrayList<Tweet> getTimeLine(TweetUser u){
         ArrayList<Tweet> t = new ArrayList<>();
-        for(User k:u.getFollowing()){
+        for(TweetUser k:u.getFollowing()){
             for(Tweet p:k.getTweets()){
                 t.add(p);
             }
@@ -71,7 +71,7 @@ public class KwetterService {
         return t;
     }
     
-    public ArrayList<Tweet> getMentions(User u){
+    public ArrayList<Tweet> getMentions(TweetUser u){
         return searchAllTweets("@"+u.getName());
     }
     
@@ -123,11 +123,11 @@ public class KwetterService {
      *
      * @param user
      */
-    public void remove(User user) {
+    public void remove(TweetUser user) {
         userDAO.remove(user);
     }
 
-    public User find(Long id){        
+    public TweetUser find(Long id){        
         return userDAO.find(id);
     }
     
@@ -135,7 +135,7 @@ public class KwetterService {
      *
      * @return lijst met alle usernames
      */
-    public List<User> findAll() { 
+    public List<TweetUser> findAll() { 
         return userDAO.findAll();
     }
     
@@ -153,7 +153,7 @@ public class KwetterService {
      */
     public int getAllTweetsCount(){
         int totalNrOfTweets=0;
-        for(User u:this.findAll()){
+        for(TweetUser u:this.findAll()){
             totalNrOfTweets = totalNrOfTweets+u.getTweets().size();
         }        
         return totalNrOfTweets;
@@ -164,14 +164,14 @@ public class KwetterService {
      * @param u
      * @return aantal users dat User u zelf volgt
      */
-    public int getNrOfFollowing(User u){
+    public int getNrOfFollowing(TweetUser u){
         return u.getFollowing().size();                
     }
     
-    public ArrayList<Tweet> getTweetsFromFollowedBy(User gebruiker){
-        ArrayList<User> u = this.getAllUsersFollowedBy(gebruiker);
+    public ArrayList<Tweet> getTweetsFromFollowedBy(TweetUser gebruiker){
+        ArrayList<TweetUser> u = this.getAllUsersFollowedBy(gebruiker);
         ArrayList<Tweet> t = new ArrayList<Tweet>();
-        for(User k:u){
+        for(TweetUser k:u){
             for(Tweet p:k.getTweets()){
             t.add(p);
             }
@@ -179,17 +179,17 @@ public class KwetterService {
         return t;
     }
     
-    public User findUser(String username){
+    public TweetUser findUser(String username){
         if(username==null){
             throw new NullPointerException("param username cannot be null");
         }
         return userDAO.find(username);
     }
     
-    public ArrayList<Tweet> getTweetsFromFollowers(User jan){
-        List<User> allUsers = this.findAll();
+    public ArrayList<Tweet> getTweetsFromFollowers(TweetUser jan){
+        List<TweetUser> allUsers = this.findAll();
         ArrayList<Tweet> msgs = new ArrayList<>();
-        for(User h:allUsers){
+        for(TweetUser h:allUsers){
             if(h.getName() == null ? jan.getName() == null : h.getName().equals(jan.getName())){
                 for(Tweet y:h.getTweets()){
                     msgs.add(y);
@@ -209,7 +209,7 @@ public class KwetterService {
     public ArrayList<Tweet> searchAllTweets(String search){
         ArrayList<Tweet> verzamelingTotaal = new ArrayList<>();
         ArrayList<Tweet> resultaat = new ArrayList<>();
-        for(User u:userDAO.findAll()){
+        for(TweetUser u:userDAO.findAll()){
             for(Tweet k:u.getTweets()){
                 verzamelingTotaal.add(k);
             }
@@ -230,9 +230,9 @@ public class KwetterService {
      * @param u
      * @return aantal users dat User u door gevolg wordt.
      */
-    public ArrayList<User> getAllUsersFollowedBy(User u){
-        ArrayList<User> c = new ArrayList<User>();
-        for (User p : this.findAll()) {
+    public ArrayList<TweetUser> getAllUsersFollowedBy(TweetUser u){
+        ArrayList<TweetUser> c = new ArrayList<TweetUser>();
+        for (TweetUser p : this.findAll()) {
             if (p.getFollowing().contains(u)){
                 c.add(p);
             }
@@ -246,19 +246,19 @@ public class KwetterService {
      * @param u
      * @return aantal users dat User u door gevolg wordt.
      */
-    public int getFollowedBy(User u){
+    public int getFollowedBy(TweetUser u){
         int nrOfFollowers = 0;
-        for (User p : this.findAll()) {
+        for (TweetUser p : this.findAll()) {
             if (p.getFollowing().contains(u)) nrOfFollowers++;                    
         }
         return nrOfFollowers;
     }
     
     private void initUsers() {
-        User u1 = new User("Hans","Hans123", "http", "geboren 1");
-        User u2 = new User("Frank","Fank123", "httpF", "geboren 2");
-        User u3 = new User("Tom", "Tom123","httpT", "geboren 3");
-        User u4 = new User("Sjaak","Sjaak123", "httpS", "geboren 4");
+        TweetUser u1 = new TweetUser("Hans","Hans123", "http", "geboren 1");
+        TweetUser u2 = new TweetUser("Frank","Fank123", "httpF", "geboren 2");
+        TweetUser u3 = new TweetUser("Tom", "Tom123","httpT", "geboren 3");
+        TweetUser u4 = new TweetUser("Sjaak","Sjaak123", "httpS", "geboren 4");
         
         u1.setId(0L);
         u2.setId(1L);

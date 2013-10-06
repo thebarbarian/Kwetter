@@ -23,7 +23,7 @@ public class Tweet implements Serializable {
     private Long id;
     private String tweet;
     @ManyToOne
-    private User user;
+    private TweetUser tweetUser;
     
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date postDate;
@@ -36,11 +36,11 @@ public class Tweet implements Serializable {
         this.tweet = tweet;
     }
 
-    public Tweet(String tweet, Date datum, String vanaf, User gebruiker) {
+    public Tweet(String tweet, Date datum, String vanaf, TweetUser gebruiker) {
         this.tweet = tweet;
         this.postDate = datum;
         this.postedFrom = vanaf;
-        this.user = gebruiker;
+        this.tweetUser = gebruiker;
     }
 
     public Long getId() {
@@ -80,7 +80,7 @@ public class Tweet implements Serializable {
         int hash = 5;
         hash = 59 * hash + Objects.hashCode(this.id);
         hash = 59 * hash + Objects.hashCode(this.tweet);
-        hash = 59 * hash + Objects.hashCode(this.user);
+        hash = 59 * hash + Objects.hashCode(this.tweetUser);
         hash = 59 * hash + Objects.hashCode(this.postDate);
         hash = 59 * hash + Objects.hashCode(this.postedFrom);
         return hash;
@@ -101,7 +101,7 @@ public class Tweet implements Serializable {
         if (!Objects.equals(this.tweet, other.tweet)) {
             return false;
         }
-        if (!Objects.equals(this.user, other.user)) {
+        if (!Objects.equals(this.tweetUser, other.tweetUser)) {
             return false;
         }
         if (!Objects.equals(this.postDate, other.postDate)) {
@@ -121,15 +121,15 @@ public class Tweet implements Serializable {
     /**
      * @return the user
      */
-    public User getUser() {
-        return user;
+    public TweetUser getUser() {
+        return tweetUser;
     }
 
     /**
      * @param user the user to set
      */
-    public void setUser(User user) {
-        this.user = user;
+    public void setUser(TweetUser user) {
+        this.tweetUser = user;
     }
 
 }

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,7 +17,7 @@ import javax.persistence.OneToMany;
  * @author 871641
  */
 @Entity
-public class User implements Serializable {
+public class TweetUser implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -27,23 +28,23 @@ public class User implements Serializable {
     private String bio;
     private String password;
     @OneToMany
-    private ArrayList<User> following = new ArrayList();
+    private List<TweetUser> following = new ArrayList();
     @OneToMany
-    private ArrayList<Tweet> tweets = new ArrayList();
+    private List<Tweet> tweets = new ArrayList();
 
-    public User() {
+    public TweetUser() {
     }
 
-    public User(String naam) {
+    public TweetUser(String naam) {
         this.name = naam;
     }
 
-    public User(String naam, String password) {
+    public TweetUser(String naam, String password) {
         this.name = naam;
         this.password = password;
     }
 
-    public User(String naam, String password, String web, String bio) {
+    public TweetUser(String naam, String password, String web, String bio) {
         this.name = naam;
         this.web = web;
         this.bio = bio;
@@ -93,11 +94,11 @@ public class User implements Serializable {
         this.web = web;
     }
 
-    public ArrayList<User> getFollowing() {
+    public List<TweetUser> getFollowing() {
         return following;
     }
 
-    public void setFollowing(ArrayList<User> following) {
+    public void setFollowing(ArrayList<TweetUser> following) {
         this.following = following;
     }
 
@@ -109,7 +110,7 @@ public class User implements Serializable {
         this.tweets = tweets;
     }
 
-    public Boolean addFollowing(User following) {
+    public Boolean addFollowing(TweetUser following) {
         return this.following.add(following);
     }
 
@@ -137,7 +138,7 @@ public class User implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final User other = (User) obj;
+        final TweetUser other = (TweetUser) obj;
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }

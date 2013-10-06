@@ -1,20 +1,20 @@
 package kwetter.dao;
 
 import java.util.List;
-import kwetter.domain.User;
+import kwetter.domain.TweetUser;
 
 public interface UserDAO {
 
     int count();
 
-    void create(User user);
+    void create(TweetUser user);
 
-    void edit(User user);
+    void edit(TweetUser user);
 
-    List<User> findAll();
+    List<TweetUser> findAll();
 
-    User find(Long id);
-    User find(String username);
+    TweetUser find(Long id);
+    TweetUser find(String username);
 
-    void remove(User user);
+    void remove(TweetUser user);
 }

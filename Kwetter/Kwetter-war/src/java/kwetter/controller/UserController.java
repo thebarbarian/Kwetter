@@ -8,7 +8,7 @@ import java.io.Serializable;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import kwetter.beans.KwetterController;
-import kwetter.domain.User;
+import kwetter.domain.TweetUser;
 
 /**
  *
@@ -17,7 +17,7 @@ import kwetter.domain.User;
 @Named
 @SessionScoped
 public class UserController implements Serializable { 
-    private User user = new User();
+    private TweetUser user = new TweetUser();
     
     public String login(){
         return "not implemented yet.";
@@ -26,7 +26,7 @@ public class UserController implements Serializable {
     public String login(String username, String password){
         if(username != null && password !=null){
             KwetterController kc = new KwetterController();
-            User u = kc.login(username, password);
+            TweetUser u = kc.login(username, password);
             if(u != null){
                 return "profile.xhtml";
             }else{
@@ -54,19 +54,19 @@ public class UserController implements Serializable {
      * @param password
      * @return a user if username and password are not null.
      */
-    public User createUser(String username, String password){
+    public TweetUser createUser(String username, String password){
         if(username != null && password != null){
-            return new User(username, password);            
+            return new TweetUser(username, password);            
         }else{
             throw new IllegalArgumentException("Username or password are null.");
         }
     }
     
-    public void createUser(User user, String username) {
+    public void createUser(TweetUser user, String username) {
         user.setName(username);
     }
 
-    public User getUser() {
+    public TweetUser getUser() {
         return user;
     }
     
