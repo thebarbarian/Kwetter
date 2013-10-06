@@ -2,10 +2,12 @@ package kwetter.domain;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 
 /**
@@ -20,6 +22,7 @@ public class Tweet implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String tweet;
+    @ManyToOne
     private User user;
     
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
@@ -46,9 +49,7 @@ public class Tweet implements Serializable {
 
     public void setId(Long id) {
 	this.id = id;
-    }
-
-    
+    }    
     
     public String getTweet() {
         return tweet;
@@ -74,21 +75,42 @@ public class Tweet implements Serializable {
         this.postedFrom = vanaf;
     }
 
-
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (tweet != null ? tweet.hashCode()+ postDate.hashCode() : 0);
+        int hash = 5;
+        hash = 59 * hash + Objects.hashCode(this.id);
+        hash = 59 * hash + Objects.hashCode(this.tweet);
+        hash = 59 * hash + Objects.hashCode(this.user);
+        hash = 59 * hash + Objects.hashCode(this.postDate);
+        hash = 59 * hash + Objects.hashCode(this.postedFrom);
         return hash;
     }
 
     @Override
-    public boolean equals(Object object) {
-        if (!(object instanceof Tweet)) {
+    public boolean equals(Object obj) {
+        if (obj == null) {
             return false;
         }
-        Tweet other = (Tweet) object;
-        return this.hashCode() == other.hashCode();
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Tweet other = (Tweet) obj;
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        if (!Objects.equals(this.tweet, other.tweet)) {
+            return false;
+        }
+        if (!Objects.equals(this.user, other.user)) {
+            return false;
+        }
+        if (!Objects.equals(this.postDate, other.postDate)) {
+            return false;
+        }
+        if (!Objects.equals(this.postedFrom, other.postedFrom)) {
+            return false;
+        }
+        return true;
     }
 
     @Override
