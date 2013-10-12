@@ -6,10 +6,12 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 /**
@@ -27,9 +29,16 @@ public class TweetUser implements Serializable {
     private String web;
     private String bio;
     private String password;
-    @OneToMany
+    
+    
+    @ManyToMany(mappedBy = "following")
+    private List<TweetUser> followers;
+     
+    //TODO DV zorgen dat bij het followen beide kanten geset worden.
+    @ManyToMany
     private List<TweetUser> following = new ArrayList();
-    @OneToMany
+    
+    @OneToMany(mappedBy = "tweetUser")
     private List<Tweet> tweets = new ArrayList();
 
     public TweetUser() {

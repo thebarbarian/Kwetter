@@ -5,13 +5,15 @@
 package kwetter.beans;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import kwetter.domain.Tweet;
 import kwetter.domain.TweetUser;
-import kwetter.service.KwetterService;
+import kwetter.dao.KwetterService;
 
 /**
  *
@@ -20,103 +22,111 @@ import kwetter.service.KwetterService;
 @Named
 @RequestScoped
 public class KwetterController {
-    
-    private KwetterService kws;    
+
+    @EJB
+    private KwetterService kws;
     private TweetUser selectedUser;
+
+    
+    @PostConstruct
+    private void init(){
+        selectedUser = new TweetUser("user", "", "web.xml", "bio");
+        
+    }
     /**
      * Creates a new instance of KwetterController
      */
-    public KwetterController() {
-        kws = new KwetterService();
-        selectedUser=kws.find(1L); // zet een default user voor als de pagina voor het eerst gelaaien wordt.       
-    }
-    
+
     /**
      *
      * @param user
      * @return lijst van alle tweets van User user
      */
-    public ArrayList<Tweet> getTweetsFromUser(TweetUser user){
-        ArrayList<Tweet> l = new ArrayList<>();
-        for (Tweet t : user.getTweets()) {
-            l.add(t);
+    public List<Tweet> getTweetsFromUser(TweetUser user) {
+        if (user.getTweets() == null) {
+            return new ArrayList<>();
+        } else {
+            return new ArrayList<>(user.getTweets());
         }
-        return l;
-    }        
-    
-    public ArrayList<Tweet> getTimeLine(TweetUser u){
-        if(u!=null){
+    }
+
+    public List<Tweet> getTimeLine(TweetUser u) {
+        if (u != null) {
             return kws.getTimeLine(u);
+        } else {
+            throw new NullPointerException("User is null in getTimeLine");
         }
-        else throw new NullPointerException("User is null in getTimeLine");       
     }
-    
-     public ArrayList<Tweet> getMentions(TweetUser u){
-         if(u!=null){
-             return kws.getMentions(u);
-         }
-         else throw new NullPointerException("geen user ingevoerd bij GetMentions()");
-     }
-    
-    
-    public HashMap<String, Integer> getTrends(){
-        if(kws.getTrends()!=null){
+
+    public List<Tweet> getMentions(TweetUser u) {
+        if (u != null) {
+            return kws.getMentions(u);
+        } else {
+            throw new NullPointerException("geen user ingevoerd bij GetMentions()");
+        }
+    }
+
+    public Map<String, Integer> getTrends() {
+        if (kws.getTrends() != null) {
             return kws.getTrends();
+        } else {
+            throw new NullPointerException("Geen trends aanwezig");
         }
-        else throw new NullPointerException("Geen trends aanwezig");        
     }
-    
-    public TweetUser login(String username, String password){
+
+    public TweetUser login(String username, String password) {
         TweetUser u = kws.findUser(username);
-        if(u==null) throw new NullPointerException("user does not exist.");
-        if(u.isPasswordCorrect(password)){
-            return u;
+        if (u == null) {
+            throw new NullPointerException("user does not exist.");
         }
-        else throw new NullPointerException("password fault.");
+        if (u.isPasswordCorrect(password)) {
+            return u;
+        } else {
+            throw new NullPointerException("password fault.");
+        }
     }
-    
-    
+
     /**
      * aanmaken gebruiker
+     *
      * @return succes msg
      */
-    public String create(TweetUser u){
+    public String create(TweetUser u) {
         kws.create(u);
-        return "user aangemaakt";        
+        return "user aangemaakt";
     }
-    
-      /**
+
+    /**
      *
      * @param user
      */
     public void edit(TweetUser user) {
-        throw new UnsupportedOperationException("Not supported yet."); 
+        throw new UnsupportedOperationException("Not supported yet.");
     }
-    
+
     /*
      * Haal alle tweets op van volgers
      */
-    public ArrayList<Tweet> getTweetsFromFollowers(TweetUser u){
+    public List<Tweet> getTweetsFromFollowers(TweetUser u) {
         return kws.getTweetsFromFollowers(u);
     }
-    
+
     /*
      * Haal alle tweets op van mensen die de user zelf volgt.
      */
-    public ArrayList<Tweet> getTweetsFromFollowedBy(TweetUser u){
+    public List<Tweet> getTweetsFromFollowedBy(TweetUser u) {
         return kws.getTweetsFromFollowedBy(u);
     }
-    
-    
+
     /**
      *
      * @param id
      * @return
      */
-    public TweetUser find(Long id){        
+    public TweetUser find(Long id) {
         return kws.find(id);
     }
-    
+
     /**
      *
      * @param user
@@ -125,10 +135,10 @@ public class KwetterController {
         kws.remove(user);
     }
 
-     public ArrayList<TweetUser> getAllUsersFollowedBy(TweetUser u){
-         return kws.getAllUsersFollowedBy(u);
-     }
-    
+    public ArrayList<TweetUser> getAllUsersFollowedBy(TweetUser u) {
+        return kws.getAllUsersFollowedBy(u);
+    }
+
     /**
      *
      * @return
@@ -139,13 +149,14 @@ public class KwetterController {
 
     /**
      * Deze lag dwars, ff gecomment
+     *
      * @param id
      * @return
      *
-    public User find(Object id) {
-        throw new UnsupportedOperationException("Not supported yet.");      
-    }*/
-
+     * public User find(Object id) { throw new
+     * UnsupportedOperationException("Not supported yet.");      
+    }
+     */
     /**
      *
      * @return
@@ -153,31 +164,30 @@ public class KwetterController {
     public int count() {
         return kws.count();
     }
-    
+
     /**
      *
      * @param u
      * @return
      */
-    public int getNrOfFollowing(TweetUser u)
-    {
+    public int getNrOfFollowing(TweetUser u) {
         return kws.getNrOfFollowing(u);
     }
-    
+
     /**
      *
      * @param u
      * @return
      */
-    public int getNrOfFollowedBy(TweetUser u){
+    public int getNrOfFollowedBy(TweetUser u) {
         return kws.getFollowedBy(u);
     }
-    
+
     /**
      *
      * @return
      */
-    public int getAllTweetsCount(){
+    public int getAllTweetsCount() {
         return kws.getAllTweetsCount();
     }
 
