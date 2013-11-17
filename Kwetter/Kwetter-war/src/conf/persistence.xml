@@ -7,7 +7,7 @@
     <properties>
       <property name="eclipselink.ddl-generation" value="drop-and-create-tables"/>
       <property name="eclipselink.ddl-generation.output-mode" value="both"/>
-      <property name="eclipselink.application-location" value="C:/Users/871641/Documents/GitHub/Kwetter/Kwetter/Kwetter-war/ddl/"/>
+      <property name="eclipselink.application-location" value="C:\Users\grave\Documents\GitHub\Kwetter\Kwetter\Kwetter-war\ddl"/>
       <!--<property name="javax.persistence.sql-load-script-source" value="import.sql">-->
     </properties>
   </persistence-unit>

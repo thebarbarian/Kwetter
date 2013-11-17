@@ -4,95 +4,49 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
-
 
 /**
  *
  * @author 871641
  */
 @Entity
-public class TweetUser implements Serializable {
-
+public class User implements Serializable  {
     private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+    @Id    
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
     private String web;
     private String bio;
     private String password;
-    
-    //edit Petrk
-    
-    
-    @ManyToMany
-    private List<TweetRole> roleList;
-    // einde edit
-    
-    @ManyToMany(mappedBy = "following")
-    private List<TweetUser> followers;
-     
-    //TODO DV zorgen dat bij het followen beide kanten geset worden.
-    @ManyToMany
-    private List<TweetUser> following = new ArrayList();
-    
-    @OneToMany(mappedBy = "tweetUser")
-    private List<Tweet> tweets = new ArrayList();
-
-    public TweetUser() {
-    }
-
-    public TweetUser(String naam) {
-        this.name = naam;
-    }
-
-    public TweetUser(String naam, String password) {
-        this.name = naam;
-        this.password = password;
-    }
-
-    public TweetUser(String naam, String password, String web, String bio) {
-        this.name = naam;
-        this.web = web;
-        this.bio = bio;
-    }
-
-    public List<TweetUser> getFollowers() {
-	return followers;
-    }
-
-    public void setFollowers(List<TweetUser> followers) {
-	this.followers = followers;
-    }
-
-    public List<Tweet> getTweets() {
-	return tweets;
-    }
-
-    public void setTweets(List<Tweet> tweets) {
-	this.tweets = tweets;
-    }
 
     public void setPassword(String password) {
-	this.password = password;
+        this.password = password;
+    }
+    
+    public boolean isPasswordCorrect(String testedPassword){
+        return this.password.equals(testedPassword);
+    }
+    
+    @OneToMany
+    private ArrayList<User> following = new ArrayList();
+    
+    @OneToMany
+    private ArrayList<Tweet> tweets = new ArrayList();
+
+    public User() {
     }
 
-    public boolean isPasswordCorrect(String testedPassword) {
-	return this.password.equals(testedPassword);
+    public String getPassword(){
+        return password;
     }
-
-    public String getPassword() {
-	return password;
-    }
-
     public Long getId() {
 	return id;
     }
@@ -100,53 +54,68 @@ public class TweetUser implements Serializable {
     public void setId(Long id) {
 	this.id = id;
     }
+    
+    public User(String naam) {
+        this.name = naam;
+    }
+    
+     public User(String naam, String password) {
+        this.name = naam;
+        this.password = password;
+    }
 
+    public User(String naam, String web, String bio) {
+        this.name = naam;
+        this.web = web;
+        this.bio = bio;
+    }
+    
     public String getBio() {
-	return bio;
+        return bio;
     }
 
     public void setBio(String bio) {
-	this.bio = bio;
+        this.bio = bio;
     }
 
     public String getName() {
-	return name;
+        return name;
     }
 
     public void setName(String name) {
-	this.name = name;
+        this.name = name;
     }
 
     public String getWeb() {
-	return web;
+        return web;
     }
 
     public void setWeb(String web) {
-	this.web = web;
+        this.web = web;
     }
 
-    public List<TweetUser> getFollowing() {
-	return following;
+    public ArrayList<User> getFollowing() {
+        return following;
     }
 
-    public void setFollowing(ArrayList<TweetUser> following) {
-	this.following = following;
-    }
-//
-//        public Collection<Tweet> getTweets() {
-//	return Collections.unmodifiableCollection(tweets);
-//    }
-
-        public void setTweets(ArrayList<Tweet> tweets) {
-	this.tweets = tweets;
+    public void setFollowing(ArrayList<User> following) {
+        this.following = following;
     }
 
-        public Boolean addFollowing(TweetUser following) {
-	return this.following.add(following);
+    public Collection<Tweet> getTweets() {
+        return Collections.unmodifiableCollection(tweets);
     }
 
-        public Boolean addTweet(Tweet tweet) {
-	return this.tweets.add(tweet);
+    public void setTweets(ArrayList<Tweet> tweets) {
+        this.tweets = tweets;
+    }
+
+    public Boolean addFollowing(User following){
+        return this.following.add(following);
+    }
+  
+    public Boolean addTweet(Tweet tweet){
+        return this.tweets.add(tweet);
     }
 
     @Override
@@ -169,7 +138,7 @@ public class TweetUser implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final TweetUser other = (TweetUser) obj;
+        final User other = (User) obj;
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }
@@ -196,11 +165,15 @@ public class TweetUser implements Serializable {
 
     @Override
     public String toString() {
-        return "User{" + "id=" + id + ", name=" + name + ", web=" + web + ", bio=" + bio + ", password=" + password + '}' + "\n";
+        return "User{" + "id=" + id + ", name=" + name + ", web=" + web + ", bio=" + bio + ", password=" + password + '}'+"\n";
     }
+
+
 
     @Override
     protected Object clone() throws CloneNotSupportedException {
         return super.clone(); //To change body of generated methods, choose Tools | Templates.
     }
+    
+    
 }
