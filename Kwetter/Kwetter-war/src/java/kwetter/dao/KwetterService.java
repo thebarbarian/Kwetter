@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.ejb.EJB;
+import javax.ejb.Startup;
 import javax.ejb.Stateless;
 import javax.inject.Named;
 import kwetter.domain.Tweet;
@@ -21,6 +22,7 @@ import kwetter.domain.TweetUser;
  */
 @Named
 @Stateless
+@Startup
 public class KwetterService {
 
     @EJB
@@ -38,8 +40,8 @@ public class KwetterService {
      *
      * @param user
      */
-    public void create(TweetUser user) {
-        userDataBean.create(user);
+    public TweetUser create(TweetUser user) {
+        return userDataBean.create(user);
     }
 
     /**
