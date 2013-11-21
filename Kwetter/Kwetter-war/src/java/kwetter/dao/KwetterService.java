@@ -37,13 +37,20 @@ public class KwetterService {
      } */
     /**
      * create user, lijkt logisch
-     *
+     * PK: Dat lijkt inderdaad maar toch gaat het fout ;p
+     * create(user) method is void noobz0r.
+     * 
      * @param user
      */
+    /*
     public TweetUser create(TweetUser user) {
         return userDataBean.create(user);
     }
-
+    */
+    public void create(TweetUser user) {
+        userDataBean.create(user);
+    }
+    
     /**
      *
      * @param user

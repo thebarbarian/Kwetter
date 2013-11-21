@@ -39,6 +39,41 @@
         <servlet-name>default</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
+    
+    <login-config>
+    <auth-method>FORM</auth-method>
+    <realm-name>UserRoleRealm</realm-name>
+    <form-login-config>
+      <form-login-page>/faces/login.xhtml</form-login-page>
+      <form-error-page>/faces/loginError.xhtml</form-error-page>
+    </form-login-config>
+    </login-config>
+
+    <security-constraint>
+    <web-resource-collection>
+      <web-resource-name>Admin user</web-resource-name>
+      <url-pattern>/faces/admin/adminpagina.xhtml</url-pattern>
+      <http-method>GET</http-method>
+          <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <role-name>ADMIN</role-name>
+    </auth-constraint>
+  </security-constraint>
+   
+  <security-constraint>
+    <web-resource-collection>
+      <web-resource-name>Admin user</web-resource-name>
+      <url-pattern>/faces/users/loggedInUser.xhtml</url-pattern>
+      <http-method>GET</http-method>
+          <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <role-name>admin</role-name>
+      <role-name>enduser</role-name>
+    </auth-constraint>
+  </security-constraint>  
+    
     <!--
     <ejb-local-ref>
         <ejb-ref-name>UserDataBean</ejb-ref-name>
