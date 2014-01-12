@@ -9,7 +9,44 @@
          <link rel="stylesheet" type="text/css" href="../resources/css/jsfcrud.css" />
     </h:head>  
     <h:body>
-        test
+       
+        <ui:insert class="LoggedInUserName">
+            <!--Whats happening - invoeren tweet  -->
+            <h:form>
+                <h:panelGrid>
+                    <h:outputLabel value="Tweet: " style="font-weight:bold" />
+                    <h:inputTextarea  binding="#{tweetTekst}"></h:inputTextarea>                    
+                    <h:commandButton value="Tweet!" action ="#{kwetterController.createTweet(tweetTekst.value)}"/>               
+                </h:panelGrid>
+            </h:form>
+            <!--Laat naam ingelogde gebruiker zien : -->
+            <h5>Welkom terug #{kwetterController.getSelectedUser().name}</h5>
+            <a href="#">Logout</a>            
+            <!-- Aantal Tweets laten zien : -->
+            <h3>Your Tweets: #{kwetterController.getSelectedUser().tweets.size()}</h3>
+            <!--Laatste tweet laten zien -->
+            <h3>On #{kwetterController.getSelectedUser().lastTweet.getDatum()} you wrote : #{kwetterController.getSelectedUser().lastTweet.getTweet()} </h3>
+            <!-- Laat aantal following en followers zien -->
+            <h3>Following : #{kwetterController.getSelectedUser().following.size()}</h3>
+            <h3>Followers : #{kwetterController.getSelectedUser().followers.size()}</h3>
+            <!--Timeline laten zien met tweets, nog geen zoekresultaat helaas maar gewoon complete lijst op datum geordend 
+                Er hoort een tabel omheen, maar nog even niks met styling gedaan-->
+            <ui:insert name="timeLine">      
+                  <c:forEach items="#{kwetterService.getTimeLine(kwetterController.getSelectedUser())}" var="tweet">                                      
+                    <h4>On #{tweet.datum}</h4>
+                    <h4>User #{tweet.user.name} said : </h4>
+                    <h4>#{tweet.tweet}</h4>
+                    
+                 </c:forEach>
+             </ui:insert>
+            
+            
+            
+        </ui:insert>
+       
+        
+        
+        
     </h:body>
 
 </html>
