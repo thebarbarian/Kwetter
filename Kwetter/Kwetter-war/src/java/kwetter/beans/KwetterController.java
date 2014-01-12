@@ -36,6 +36,9 @@ public class KwetterController {
      * @return lijst van alle tweets van User user
      */
     public List<Tweet> getTweetsFromUser(TweetUser user) {
+        if (user == null) {
+            return new ArrayList<>();
+        }
         if (user.getTweets() == null) {
             return new ArrayList<>();
         } else {
@@ -129,15 +132,6 @@ public class KwetterController {
     }
 
     /**
-     * Deze lag dwars, ff gecomment
-     *
-     * @param id
-     * @return
-     *
-     * public User find(Object id) { throw new
-     * UnsupportedOperationException("Not supported yet."); }
-     */
-    /**
      *
      * @return
      */
@@ -177,6 +171,8 @@ public class KwetterController {
     public TweetUser getSelectedUser() {
         HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
         String username = request.getRemoteUser();
+        System.err.println(username);
+
         TweetUser t = null;
         if (username != null) {
             t = kws.findUser(username);
