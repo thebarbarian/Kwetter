@@ -4,11 +4,9 @@
  */
 package kwetter.domain;
 
-import java.util.ArrayList;
+import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
@@ -18,12 +16,9 @@ import javax.persistence.ManyToMany;
  * @author grave
  */
 @Entity
-public class TweetRole {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long roleId;      
-    private String roleName;
-    private TweetUser tweeter;
+public class TweetRole implements Serializable{
+    @Id        
+    private String roleName;    
    
     @ManyToMany(mappedBy = "roleList")
     List<TweetUser> userlist;
@@ -31,18 +26,10 @@ public class TweetRole {
     public TweetRole() {
     }
 
-    public TweetRole(Long id, String rolenm){
-         this.roleId=id;
-         this.roleName=rolenm;
+    public TweetRole(String roleName){         
+         this.roleName = roleName;
      }
     
-    public Long getRoleId() {
-        return roleId;
-    }
-
-    public void setRoleId(Long roleId) {
-        this.roleId = roleId;
-    }
     
      
         

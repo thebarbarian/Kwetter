@@ -11,7 +11,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
-        <url-pattern>/faces/*</url-pattern>
+        <url-pattern>*.xhtml</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
@@ -19,7 +19,7 @@
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>faces/index.xhtml</welcome-file>
+        <welcome-file>index.xhtml</welcome-file>
     </welcome-file-list>
     <!--Allow directory listing-->
     <servlet>
@@ -39,70 +39,47 @@
         <servlet-name>default</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
-    
     <login-config>
-    <auth-method>FORM</auth-method>
-    <realm-name>UserRoleRealm</realm-name>
-    <form-login-config>
-      <form-login-page>/faces/login.xhtml</form-login-page>
-      <form-error-page>/faces/loginError.xhtml</form-error-page>
-    </form-login-config>
+        <auth-method>FORM</auth-method>
+        <realm-name>kwetterRealm</realm-name>
+        <form-login-config>
+            <form-login-page>/login.xhtml</form-login-page>
+            <form-error-page>/loginerror.xhtml</form-error-page>
+        </form-login-config>
     </login-config>
-
     <security-constraint>
-    <web-resource-collection>
-      <web-resource-name>Admin user</web-resource-name>
-      <url-pattern>/faces/admin/adminpagina.xhtml</url-pattern>
-      <http-method>GET</http-method>
-          <http-method>POST</http-method>
-    </web-resource-collection>
-    <auth-constraint>
-      <role-name>ADMIN</role-name>
-    </auth-constraint>
-  </security-constraint>
-   
-  <security-constraint>
-    <web-resource-collection>
-      <web-resource-name>Admin user</web-resource-name>
-      <url-pattern>/faces/users/loggedInUser.xhtml</url-pattern>
-      <http-method>GET</http-method>
-          <http-method>POST</http-method>
-    </web-resource-collection>
-    <auth-constraint>
-      <role-name>admin</role-name>
-      <role-name>enduser</role-name>
-    </auth-constraint>
-  </security-constraint>  
-    
-    <!--
-    <ejb-local-ref>
-        <ejb-ref-name>UserDataBean</ejb-ref-name>
-        <ejb-ref-type>Session</ejb-ref-type>
-        <ejb-link>#UserDataBean</ejb-link>
-    </ejb-local-ref>
-    <ejb-local-ref>
-        <ejb-ref-name>UserDataSessionBean</ejb-ref-name>
-        <ejb-ref-type>Session</ejb-ref-type>
-        <ejb-link>#UserDataSessionBean</ejb-link>
-    </ejb-local-ref>
-    <ejb-local-ref>
-        <ejb-ref-name>UserDataSessionBean1</ejb-ref-name>
-        <ejb-ref-type>Session</ejb-ref-type>
-        <ejb-link>#UserDataSessionBean</ejb-link>
-    </ejb-local-ref>
-    <ejb-local-ref>
-        <ejb-ref-name>UserDataSessionBean2</ejb-ref-name>
-        <ejb-ref-type>Session</ejb-ref-type>
-        <ejb-link>#UserDataSessionBean</ejb-link>
-    </ejb-local-ref>
-    <ejb-local-ref>
-        <ejb-ref-name>TweetFacade</ejb-ref-name>
-        <ejb-ref-type>Session</ejb-ref-type>
-        <ejb-link>#TweetFacade</ejb-link>
-    </ejb-local-ref>
-    <ejb-local-ref>
-        <ejb-ref-name>UserDataSessionBean3</ejb-ref-name>
-        <ejb-ref-type>Session</ejb-ref-type>
-        <ejb-link>#UserDataSessionBean</ejb-link>
-    </ejb-local-ref>-->
+        <display-name>superdude</display-name>
+        <web-resource-collection>
+            <web-resource-name>superdude</web-resource-name>
+            <description/>
+            <url-pattern>/admin/adminpagina.xhtml</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>superdude</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <security-constraint>
+        <display-name>loggeduser</display-name>
+        <web-resource-collection>
+            <web-resource-name>loggeduser</web-resource-name>
+            <description/>
+            <url-pattern>/users/loggedInUser.xhtml</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>Profile pagina</web-resource-name>
+            <description/>
+            <url-pattern>/users/templateProfile.xhtml</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>loggeduser</role-name>
+        </auth-constraint>
+    </security-constraint>  
+    <security-role>
+        <description>admin</description>
+        <role-name>superdude</role-name>
+    </security-role>
+    <security-role>
+        <description>ingelogde gebruiker</description>
+        <role-name>loggeduser</role-name>
+    </security-role>
 </web-app>

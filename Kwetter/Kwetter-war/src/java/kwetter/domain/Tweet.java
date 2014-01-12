@@ -40,7 +40,7 @@ public class Tweet implements Serializable {
         this.tweet = tweet;
         this.postDate = datum;
         this.postedFrom = vanaf;
-        this.tweetUser = user;
+        this.tweetUser = user;        
     }
 
     public Long getId() {

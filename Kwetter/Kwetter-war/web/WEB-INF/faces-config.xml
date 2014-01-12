@@ -10,15 +10,8 @@
         </resource-bundle>
     </application>
     <managed-bean>
-        <managed-bean-name>userBean</managed-bean-name>
-        <managed-bean-class>kwetter.beans.UserBean</managed-bean-class>
-        <managed-bean-scope>session</managed-bean-scope>
-    </managed-bean>
-    <managed-bean>
         <managed-bean-name>kwetterController</managed-bean-name>
-        <managed-bean-class>kwetter.beans.KwetterController</managed-bean-class>
-    
-        <managed-bean-scope>session</managed-bean-scope></managed-bean>
-        
+        <managed-bean-class>kwetter.beans.KwetterController</managed-bean-class>    
+        <managed-bean-scope>session</managed-bean-scope></managed-bean>        
 
 </faces-config>

@@ -9,65 +9,60 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.ejb.EJB;
-import javax.ejb.Startup;
 import javax.ejb.Stateless;
-import javax.inject.Named;
 import kwetter.domain.Tweet;
 import kwetter.domain.TweetUser;
+import kwetter.sessionBeans.TweetFacade;
+import kwetter.sessionBeans.TweetUserFacade;
 
 /**
  *
  * @author grave
  * @author  David
  */
-@Named
 @Stateless
-@Startup
 public class KwetterService {
-
     @EJB
-    UserDataBean userDataBean;
-
-    /**
-     * initUsers maakt een paar users en dummy tweets aan.
-     */
-    /*
-     public KwetterService() {
-     initUsers();
-     } */
-    /**
-     * create user, lijkt logisch
-     * PK: Dat lijkt inderdaad maar toch gaat het fout ;p
-     * create(user) method is void noobz0r.
-     * 
-     * @param user
-     */
-    /*
-    public TweetUser create(TweetUser user) {
-        return userDataBean.create(user);
-    }
-    */
-    public void create(TweetUser user) {
-        userDataBean.create(user);
+    private TweetUserFacade tweetUserFacade;
+    @EJB
+    private TweetFacade tweetFacade;
+    
+    
+     public TweetUser createUser(TweetUser user) {
+       tweetUserFacade.create(user);
+       return user;
     }
     
     /**
      *
      * @param user
      */
-    public void edit(TweetUser user) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public void editUser(TweetUser user) {
+        tweetUserFacade.edit(user);
     }
 
     /*
      * Tweet toevoegen van opdracht 3 :
      * 
      */
-    public void createNewTweet(TweetUser user, String tekst) {
-        Tweet t = new Tweet(tekst, new Date(), "internet", user);
+    public Tweet createTweet(TweetUser user, String message) {
+        Tweet tweet = new Tweet(message, new Date(), "internet", user);
         // vanaf = het device waarvan de tweet gestuurd werd.
-        TweetUser u = userDataBean.find(user.getId());
-        u.addTweet(t);
+        TweetUser u = tweetUserFacade.find(user.getName());
+        u.addTweet(tweet);
+        tweetFacade.create(tweet);
+        return tweet;
+    }
+    
+    public Tweet createTweet(TweetUser user, Tweet tweet){
+        if(tweet.getUser() == null){
+            tweet.setUser(user);
+        }
+        if(!user.getTweets().contains(tweet)){
+            user.addTweet(tweet);
+        }
+        tweetFacade.create(tweet);
+        return tweet;
     }
 
     public List<Tweet> getTimeLine(TweetUser u) {
@@ -137,27 +132,23 @@ public class KwetterService {
      * @param user
      */
     public void remove(TweetUser user) {
-        userDataBean.remove(user);
-    }
-
-    public TweetUser find(Long id) {
-        return userDataBean.find(id);
-    }
+        tweetUserFacade.remove(user);
+    }   
 
     /**
      *
      * @return lijst met alle usernames
      */
-    public List<TweetUser> findAll() {
-        return userDataBean.findAll();
+    public List<TweetUser> findAllTweetUsers() {
+        return tweetUserFacade.findAll();
     }
 
     /**
      *
      * @return
      */
-    public int count() {
-        return userDataBean.count();
+    public int tweetUserCount() {
+        return tweetUserFacade.count();
     }
 
     /**
@@ -168,7 +159,7 @@ public class KwetterService {
      */
     public int getAllTweetsCount() {
         int totalNrOfTweets = 0;
-        for (TweetUser u : this.findAll()) {
+        for (TweetUser u : this.findAllTweetUsers()) {
             totalNrOfTweets = totalNrOfTweets + u.getTweets().size();
         }
         return totalNrOfTweets;
@@ -198,15 +189,12 @@ public class KwetterService {
     }
 
     public TweetUser findUser(String username) {
-        if (username == null) {
-            throw new NullPointerException("param username cannot be null");
-        }
-        return userDataBean.find(username);
+        return tweetUserFacade.find(username);
     }
 
     //TODO DV is dit wel de gevraagde opdracht
     public List<Tweet> getTweetsFromFollowers(TweetUser jan) {
-        List<TweetUser> allUsers = this.findAll();
+        List<TweetUser> allUsers = this.findAllTweetUsers();
         ArrayList<Tweet> msgs = new ArrayList<>();
         for (TweetUser h : allUsers) {
             if (h.getName() == null ? jan.getName() == null : h.getName().equals(jan.getName())) {
@@ -228,7 +216,7 @@ public class KwetterService {
     public List<Tweet> searchAllTweets(String search) {
         ArrayList<Tweet> allTweets = new ArrayList<>();
         ArrayList<Tweet> resultaat = new ArrayList<>();
-        for (TweetUser u : userDataBean.findAll()) {
+        for (TweetUser u : tweetUserFacade.findAll()) {
             allTweets.addAll(u.getTweets());
         }
         for (Tweet r : allTweets) {
@@ -249,7 +237,7 @@ public class KwetterService {
      */
     public ArrayList<TweetUser> getAllUsersFollowedBy(TweetUser u) {
         ArrayList<TweetUser> c = new ArrayList<>();
-        for (TweetUser p : this.findAll()) {
+        for (TweetUser p : this.findAllTweetUsers()) {
             if (p.getFollowing().contains(u)) {
                 c.add(p);
             }
@@ -264,56 +252,11 @@ public class KwetterService {
      */
     public int getFollowedBy(TweetUser u) {
         int nrOfFollowers = 0;
-        for (TweetUser p : this.findAll()) {
+        for (TweetUser p : this.findAllTweetUsers()) {
             if (p.getFollowing().contains(u)) {
                 nrOfFollowers++;
             }
         }
         return nrOfFollowers;
-    }
-
-    @Deprecated
-    private void initUsers() {
-        TweetUser u1 = new TweetUser("Hans", "Hans123", "http", "geboren 1");
-        TweetUser u2 = new TweetUser("Frank", "Fank123", "httpF", "geboren 2");
-        TweetUser u3 = new TweetUser("Tom", "Tom123", "httpT", "geboren 3");
-        TweetUser u4 = new TweetUser("Sjaak", "Sjaak123", "httpS", "geboren 4");
-
-        u1.setId(0L);
-        u2.setId(1L);
-        u3.setId(2L);
-        u4.setId(3L);
-
-        u1.addFollowing(u2);
-        u1.addFollowing(u3);
-        u1.addFollowing(u4);
-
-        Tweet t1 = new Tweet("Hallo", new Date(), "PC", u1);
-        Tweet t2 = new Tweet("Hallo again", new Date(), "PC", u1);
-        Tweet t3 = new Tweet("Hallo where are you", new Date(), "PC", u1);
-        Tweet t4 = new Tweet("Time to rock!", new Date(), "PC", u2);
-        Tweet t5 = new Tweet("time to sleep -_-", new Date(), "PC", u2);
-        Tweet t6 = new Tweet("How about jij gaat aan het werk of zo", new Date(), "PC", u2);
-        Tweet t7 = new Tweet("Niks beters te doen dan ?", new Date(), "PC", u3);
-        Tweet t8 = new Tweet("Prinsjesdag maakt koekjes goedkoper!", new Date(), "PC", u2);
-        Tweet t9 = new Tweet("imma let you finish.", new Date(), "PC", u2);
-        Tweet t10 = new Tweet("OMG NOOOOooooooo", new Date(), "PC", u3);
-        u1.addTweet(t1);
-        u1.addTweet(t2);
-        u1.addTweet(t3);
-
-        u2.addTweet(t4);
-        u2.addTweet(t5);
-        u2.addTweet(t6);
-
-        u3.addTweet(t7);
-        u2.addTweet(t8);
-        u2.addTweet(t9);
-
-        u3.addTweet(t10);
-        userDataBean.create(u1);
-        userDataBean.create(u2);
-        userDataBean.create(u3);
-        userDataBean.create(u4);
     }
 }

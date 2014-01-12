@@ -7,10 +7,11 @@ package kwetter.beans;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
+import javax.servlet.http.HttpServletRequest;
 import kwetter.domain.Tweet;
 import kwetter.domain.TweetUser;
 import kwetter.dao.KwetterService;
@@ -25,18 +26,10 @@ public class KwetterController {
 
     @EJB
     private KwetterService kws;
-    private TweetUser selectedUser;
 
-    
-    @PostConstruct
-    private void init(){
-        selectedUser = new TweetUser("user", "", "web.xml", "bio");
-        
-    }
     /**
      * Creates a new instance of KwetterController
      */
-
     /**
      *
      * @param user
@@ -74,25 +67,13 @@ public class KwetterController {
         }
     }
 
-    public TweetUser login(String username, String password) {
-        TweetUser u = kws.findUser(username);
-        if (u == null) {
-            throw new NullPointerException("user does not exist.");
-        }
-        if (u.isPasswordCorrect(password)) {
-            return u;
-        } else {
-            throw new NullPointerException("password fault.");
-        }
-    }
-
     /**
      * aanmaken gebruiker
      *
      * @return succes msg
      */
     public String create(TweetUser u) {
-        kws.create(u);
+        kws.createUser(u);
         return "user aangemaakt";
     }
 
@@ -123,8 +104,8 @@ public class KwetterController {
      * @param id
      * @return
      */
-    public TweetUser find(Long id) {
-        return kws.find(id);
+    public TweetUser find(String username) {
+        return kws.findUser(username);
     }
 
     /**
@@ -144,7 +125,7 @@ public class KwetterController {
      * @return
      */
     public List<TweetUser> findAll() {
-        return kws.findAll();
+        return kws.findAllTweetUsers();
     }
 
     /**
@@ -154,15 +135,14 @@ public class KwetterController {
      * @return
      *
      * public User find(Object id) { throw new
-     * UnsupportedOperationException("Not supported yet.");      
-    }
+     * UnsupportedOperationException("Not supported yet."); }
      */
     /**
      *
      * @return
      */
     public int count() {
-        return kws.count();
+        return kws.tweetUserCount();
     }
 
     /**
@@ -195,13 +175,12 @@ public class KwetterController {
      * @return the selectedUser
      */
     public TweetUser getSelectedUser() {
-        return selectedUser;
-    }
-
-    /**
-     * @param selectedUser the selectedUser to set
-     */
-    public void setSelectedUser(TweetUser selectedUser) {
-        this.selectedUser = selectedUser;
+        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        String username = request.getRemoteUser();
+        TweetUser t = null;
+        if (username != null) {
+            t = kws.findUser(username);
+        }
+        return t;
     }
 }

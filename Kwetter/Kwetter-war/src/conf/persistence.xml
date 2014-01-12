@@ -1,19 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
-  <persistence-unit name="Kwetter-warPU" transaction-type="JTA">
-    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-    <jta-data-source>jdbc/sample</jta-data-source>
-    <exclude-unlisted-classes>false</exclude-unlisted-classes>
-    <properties>
-      <property name="eclipselink.ddl-generation" value="drop-and-create-tables"/>
-<<<<<<< HEAD
-      <property name="eclipselink.ddl-generation.output-mode" value="both"/>
-      <property name="eclipselink.application-location" value="C:\Users\grave\Documents\GitHub\Kwetter\Kwetter\Kwetter-war\ddl"/>
-=======
-      <property name="eclipselink.ddl-generation.output-mode" value="database"/>
-      <!--<property name="eclipselink.application-location" value="C:/Users/871641/Documents/GitHub/Kwetter/Kwetter/Kwetter-war/ddl/"/>-->
->>>>>>> 91cfcdb61ad7dc33a8166145869cc94fc4363f6c
-      <!--<property name="javax.persistence.sql-load-script-source" value="import.sql">-->
-    </properties>
-  </persistence-unit>
+    <persistence-unit name="Kwetter-warPU" transaction-type="JTA">
+        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+        <jta-data-source>jdbc/sample</jta-data-source>
+        <exclude-unlisted-classes>false</exclude-unlisted-classes>
+        <properties>            
+            <property name="eclipselink.ddl-generation" value="create-tables"/>
+        </properties>
+    </persistence-unit>
 </persistence>
