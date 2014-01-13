@@ -41,16 +41,7 @@ public class DummyInjectorBean {
     
     @PreDestroy
     public void PreDestroy(){
-        for(TweetRole tr : tweetRoleFacade.findAll()){
-            tweetRoleFacade.remove(tr);
-        }
-        for(Tweet t: tweetFacade.findAll()){
-            tweetFacade.remove(t);
-        }
-        for(TweetUser tu : tweetUserFacade.findAll()){
-            tweetUserFacade.remove(tu);
-        }
-        
+        emptyDatabase();        
     }
     
     @PostConstruct
@@ -86,7 +77,10 @@ public class DummyInjectorBean {
         Tweet t10 = new Tweet("OMG NOOOOooooooo", new Date(), "PC",u3);
         
         
-        
+        if(kwetterService.findAllTweetUsers().contains(u0)){            
+            emptyDatabase();
+        }
+                
         tweetRoleFacade.create(role);
         tweetRoleFacade.create(role2);
         
@@ -96,8 +90,20 @@ public class DummyInjectorBean {
         
         for(Tweet t : new Tweet[]{t1,t2,t3,t4,t5,t6,t7,t8,t8,t9,t10}){
             kwetterService.createTweet(u0, t);
+        }  
+    }
+
+    private void emptyDatabase() {
+        System.err.print("Emptying database...");
+        for(TweetRole tr : tweetRoleFacade.findAll()){
+            tweetRoleFacade.remove(tr);
         }
-        
-        
+        for(Tweet t: tweetFacade.findAll()){
+            tweetFacade.remove(t);
+        }
+        for(TweetUser tu : tweetUserFacade.findAll()){
+            tweetUserFacade.remove(tu);
+        }
+        System.err.println(" done!");
     }
 }
