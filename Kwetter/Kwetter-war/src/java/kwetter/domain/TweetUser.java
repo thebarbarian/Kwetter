@@ -2,12 +2,10 @@ package kwetter.domain;
 
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
-import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.Entity;
@@ -39,7 +37,6 @@ public class TweetUser implements Serializable {
     private List<TweetRole> roleList;
     @ManyToMany(mappedBy = "following")
     private List<TweetUser> followers;
-    //TODO DV zorgen dat bij het followen beide kanten geset worden.
     @ManyToMany
     private List<TweetUser> following = new ArrayList();
     @OneToMany(mappedBy = "tweetUser")

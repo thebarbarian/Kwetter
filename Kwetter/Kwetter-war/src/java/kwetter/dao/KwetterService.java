@@ -57,7 +57,11 @@ public class KwetterService {
     public Tweet createTweet(TweetUser user, Tweet tweet){
         if(tweet.getUser() == null){
             tweet.setUser(user);
-        }
+        }else{
+            if(tweet.getUser() != user){
+                throw new IllegalArgumentException("User does not match Tweet user from tweet");
+            }
+        }        
         if(!user.getTweets().contains(tweet)){
             user.addTweet(tweet);
         }

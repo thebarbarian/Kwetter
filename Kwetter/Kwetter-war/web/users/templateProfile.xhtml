@@ -35,18 +35,9 @@
                   <c:forEach items="#{kwetterService.getTimeLine(kwetterController.getSelectedUser())}" var="tweet">                                      
                     <h4>On #{tweet.datum}</h4>
                     <h4>User #{tweet.user.name} said : </h4>
-                    <h4>#{tweet.tweet}</h4>
-                    
+                    <h4>#{tweet.tweet}</h4>                    
                  </c:forEach>
-             </ui:insert>
-            
-            
-            
-        </ui:insert>
-       
-        
-        
-        
+             </ui:insert>         
+        </ui:insert>       
     </h:body>
-
 </html>
