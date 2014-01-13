@@ -7,6 +7,7 @@ package kwetter.beans;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.ActivationConfigProperty;
+import javax.ejb.EJB;
 import javax.ejb.MessageDriven;
 import javax.jms.JMSException;
 import javax.jms.JMSProducer;
@@ -14,6 +15,7 @@ import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import kwetter.dao.KwetterService;
 import kwetter.domain.Tweet;
 import kwetter.domain.TweetUser;
 
@@ -27,6 +29,8 @@ import kwetter.domain.TweetUser;
 })
 public class KwetterMessageBeanListener implements MessageListener {
 
+    @EJB
+    private KwetterService kwetterService;
     
      private String msgFromQueue;
     /**
@@ -49,15 +53,20 @@ public class KwetterMessageBeanListener implements MessageListener {
         String messageData = "";
         TweetUser u = new TweetUser("KwetterGo");
         try {
-            messageData = message.getBody(String.class) + eol
+            messageData = message.getBody(String.class);
+            
+            System.out.println(messageData+eol
                     + "Message ID: " + message.getJMSMessageID() + eol
                     + "DeliveryMode: " + message.getJMSDeliveryMode() + eol
                     + "Expiration: " + message.getJMSExpiration() + eol
-                    + "Message type: " + message.getJMSType() + eol;
-            //TODO refactor
-            msgFromQueue = messageData;
-            Tweet t = new Tweet(messageData);
-            u.addTweet(t);
+                    + "Message type: " + message.getJMSType() + eol);
+            
+            String username = messageData.substring(messageData.indexOf(':')+1, messageData.indexOf("says :")-1).trim();
+            String usermessage = messageData.substring(messageData.indexOf("says :")+"says :".length()).trim();
+            System.err.println("Username: "+username);
+            System.err.println("Usermessage: "+ usermessage );
+            TweetUser myFirstUser = kwetterService.findUser(username);
+            kwetterService.createTweet(myFirstUser, usermessage);
         } catch (JMSException ex) {
             Logger.getLogger(KwetterMessageBeanListener.class.getName()).log(Level.SEVERE, null, ex);
         }
