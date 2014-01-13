@@ -41,16 +41,7 @@ public class DummyInjectorBean {
     
     @PreDestroy
     public void PreDestroy(){
-        for(TweetRole tr : tweetRoleFacade.findAll()){
-            tweetRoleFacade.remove(tr);
-        }
-        for(Tweet t: tweetFacade.findAll()){
-            tweetFacade.remove(t);
-        }
-        for(TweetUser tu : tweetUserFacade.findAll()){
-            tweetUserFacade.remove(tu);
-        }
-        
+        emptyDatabase();        
     }
     
     @PostConstruct
@@ -73,20 +64,22 @@ public class DummyInjectorBean {
         u1.addFollowing(u3);
         u1.addFollowing(u4);
 
-        Tweet t1 = new Tweet("Hallo", new Date(), "PC", u0);
-        u0.addTweet(t1);
-        Tweet t2 = new Tweet("Hallo again", new Date(), "PC",u1);
-        Tweet t3 = new Tweet("Hallo where are you", new Date(), "PC",u1);
-        Tweet t4 = new Tweet("Time to rock!", new Date(), "PC",u2);
-        Tweet t5 = new Tweet("time to sleep -_-", new Date(), "PC",u2);
-        Tweet t6 = new Tweet("How about jij gaat aan het werk of zo", new Date(), "PC",u2);
-        Tweet t7 = new Tweet("Niks beters te doen dan ?", new Date(), "PC",u3);
-        Tweet t8 = new Tweet("Prinsjesdag maakt koekjes goedkoper!", new Date(), "PC",u2);
-        Tweet t9 = new Tweet("imma let you finish.", new Date(), "PC",u2);
-        Tweet t10 = new Tweet("OMG NOOOOooooooo", new Date(), "PC",u3);
+        Tweet t1 = new Tweet("Hallo", new Date(), "PC", u0);        
+        Tweet t2 = new Tweet("Hallo again", new Date(), "PC",u0);
+        Tweet t3 = new Tweet("Hallo where are you", new Date(), "PC",u0);
+        Tweet t4 = new Tweet("Time to rock!", new Date(), "PC",u0);
+        Tweet t5 = new Tweet("time to sleep -_-", new Date(), "PC",u0);
+        Tweet t6 = new Tweet("How about jij gaat aan het werk of zo", new Date(), "PC",u0);
+        Tweet t7 = new Tweet("Niks beters te doen dan ?", new Date(), "PC",u0);
+        Tweet t8 = new Tweet("Prinsjesdag maakt koekjes goedkoper!", new Date(), "PC",u0);
+        Tweet t9 = new Tweet("imma let you finish.", new Date(), "PC",u0);
+        Tweet t10 = new Tweet("OMG NOOOOooooooo", new Date(), "PC",u0);
         
         
-        
+        if(kwetterService.findAllTweetUsers().contains(u0)){            
+            emptyDatabase();
+        }
+                
         tweetRoleFacade.create(role);
         tweetRoleFacade.create(role2);
         
@@ -96,8 +89,20 @@ public class DummyInjectorBean {
         
         for(Tweet t : new Tweet[]{t1,t2,t3,t4,t5,t6,t7,t8,t8,t9,t10}){
             kwetterService.createTweet(u0, t);
+        }  
+    }
+
+    private void emptyDatabase() {
+        System.err.print("Emptying database...");
+        for(TweetRole tr : tweetRoleFacade.findAll()){
+            tweetRoleFacade.remove(tr);
         }
-        
-        
+        for(Tweet t: tweetFacade.findAll()){
+            tweetFacade.remove(t);
+        }
+        for(TweetUser tu : tweetUserFacade.findAll()){
+            tweetUserFacade.remove(tu);
+        }
+        System.err.println(" done!");
     }
 }
