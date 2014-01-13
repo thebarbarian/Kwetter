@@ -4,7 +4,6 @@
  */
 package kwetter.beans;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import javax.annotation.PostConstruct;
@@ -37,7 +36,6 @@ public class DummyInjectorBean {
     private TweetRoleFacade tweetRoleFacade;
     @EJB
     private KwetterService kwetterService;
-
     
     @PreDestroy
     public void PreDestroy(){

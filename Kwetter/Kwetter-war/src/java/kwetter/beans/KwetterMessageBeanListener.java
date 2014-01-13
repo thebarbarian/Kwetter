@@ -31,8 +31,8 @@ public class KwetterMessageBeanListener implements MessageListener {
 
     @EJB
     private KwetterService kwetterService;
-    
-     private String msgFromQueue;
+    private String msgFromQueue;
+
     /**
      * @param <T> the return type
      * @param retvalClass the returned value's {@link Class}
@@ -50,21 +50,20 @@ public class KwetterMessageBeanListener implements MessageListener {
     @Override
     public void onMessage(Message message) {
         String eol = System.getProperty("line.separator");
-        String messageData = "";
-        TweetUser u = new TweetUser("KwetterGo");
+
         try {
-            messageData = message.getBody(String.class);
-            
-            System.out.println(messageData+eol
+            String messageData = message.getBody(String.class);
+
+            System.out.println(messageData + eol
                     + "Message ID: " + message.getJMSMessageID() + eol
                     + "DeliveryMode: " + message.getJMSDeliveryMode() + eol
                     + "Expiration: " + message.getJMSExpiration() + eol
                     + "Message type: " + message.getJMSType() + eol);
-            
-            String username = messageData.substring(messageData.indexOf(':')+1, messageData.indexOf("says :")-1).trim();
-            String usermessage = messageData.substring(messageData.indexOf("says :")+"says :".length()).trim();
-            System.err.println("Username: "+username);
-            System.err.println("Usermessage: "+ usermessage );
+
+            String username = messageData.substring(messageData.indexOf(':') + 1, messageData.indexOf("says :") - 1).trim();
+            String usermessage = messageData.substring(messageData.indexOf("says :") + "says :".length()).trim();
+            System.out.println("Username: " + username);
+            System.out.println("Usermessage: " + usermessage);
             TweetUser myFirstUser = kwetterService.findUser(username);
             kwetterService.createTweet(myFirstUser, usermessage);
         } catch (JMSException ex) {
