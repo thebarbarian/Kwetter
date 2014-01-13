@@ -3,6 +3,7 @@ nbproject/private/
 nbproject/
 Kwetter/Kwetter-ejb/nbproject/
 Kwetter/Kwetter-war/nbproject/
+Kwetter/Kwetter-war/build.xml
 Kwetter/nbproject/
 *.private
 private/
