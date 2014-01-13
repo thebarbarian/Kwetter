@@ -75,43 +75,6 @@ public class Tweet implements Serializable {
         this.postedFrom = vanaf;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 5;
-        hash = 59 * hash + Objects.hashCode(this.id);
-        hash = 59 * hash + Objects.hashCode(this.tweet);
-        hash = 59 * hash + Objects.hashCode(this.tweetUser);
-        hash = 59 * hash + Objects.hashCode(this.postDate);
-        hash = 59 * hash + Objects.hashCode(this.postedFrom);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Tweet other = (Tweet) obj;
-        if (!Objects.equals(this.id, other.id)) {
-            return false;
-        }
-        if (!Objects.equals(this.tweet, other.tweet)) {
-            return false;
-        }
-        if (!Objects.equals(this.tweetUser, other.tweetUser)) {
-            return false;
-        }
-        if (!Objects.equals(this.postDate, other.postDate)) {
-            return false;
-        }
-        if (!Objects.equals(this.postedFrom, other.postedFrom)) {
-            return false;
-        }
-        return true;
-    }
 
     @Override
     public String toString() {

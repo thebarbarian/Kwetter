@@ -27,6 +27,8 @@ public class KwetterController {
     @EJB
     private KwetterService kws;
 
+    
+    
     /**
      * Creates a new instance of KwetterController
      */
@@ -46,6 +48,10 @@ public class KwetterController {
         }
     }
 
+    public void createTweet(String message){
+        kws.createTweet(getSelectedUser(), message);
+    }
+    
     public List<Tweet> getTimeLine(TweetUser u) {
         if (u != null) {
             return kws.getTimeLine(u);
